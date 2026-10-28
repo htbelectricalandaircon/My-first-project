@@ -27,10 +27,15 @@
 - Timber floor joists, **about 200 mm deep**, with **about 400 mm** between them.
   Floorboards sit directly on top, so the full void is about 200 mm.
 
-![Isolators](photos/03-isolators.jpg)
+![Outdoor wall](photos/03-outdoor-wall.jpg)
 
-- Two existing rotary isolators, fed by orange circular cable in corrugated conduit, mounted
-  on a damp, stained wall above old waste and water pipes.
+- This is the outside face of the window wall, where the outdoor unit goes. It's painted
+  concrete block, with the high-level windows and their timber sill above.
+- At the base of the wall the ground is bare, uneven soil, with moss, a rock outcrop, debris
+  and loose flexible conduit. It looks damp.
+- There's an old fixing or pipe stub in the wall at about mid-height. Remove it or make it good.
+- The internal corner is right next to the left end of the windows, so check the side clearance
+  if the unit goes near the corner.
 
 ## 2. Key issue: cassette fit between the joists (decide before quoting)
 
@@ -89,19 +94,34 @@ that the manual specifies.
   **verify**). RCD protection is required. Check the switchboard has capacity.
 - **Interconnect:** 4-core cable, 1.5 or 2.5 mm² as the manual specifies, about 7 m.
   Run it with the pipe bundle.
-- **Existing isolators (photo 3):** these are in a damp, dirty location above plumbing.
-  Find out what they feed. Don't reuse them for the AC unless they're the right rating,
-  sit within sight of the outdoor unit and are in good condition. Recommend a new
-  isolator at the outdoor unit.
+- Mount a new IP56 isolator on the block wall beside the outdoor unit, within sight of it.
+  Run the power and interconnect cables through the same wall penetration as the pipes.
 - The electrical work must be done by a licensed electrician, with a certificate of compliance or
   electrical safety certificate issued on completion.
 
 ## 6. Outdoor unit
 
-- Mount it on a wall bracket or ground pad outside the window wall. Keep the clearances
-  in the manual: about 100 mm behind, plus clear airflow in front.
-- Use anti-vibration mounts. On a block wall, fix with chemical anchors or sleeve anchors.
-- Keep the discharge clear of the windows, and away from neighbours for noise.
+- **Recommended: wall brackets** on the block wall below the windows, with the unit about
+  400–500 mm above ground. This keeps it off the damp, uneven soil and away from debris
+  and splash. A ground mount would need a proper concrete slab or a compacted, levelled base
+  with a plastic pad. On soft soil like this, a pad alone will settle.
+- **Fixings:** the blocks are probably hollow. Use chemical anchors with mesh sleeves, or
+  fix into grouted cores, and allow for the full operating weight.
+- **Pipe penetration:** the pipes leave the ceiling void at about window-head height.
+  The two options are:
+  1. Core-drill just beside the window frame at void level, then run the pipes down
+     the outside wall in a UV-stable pipe duct to the unit. This is the neatest,
+     and the inside stays hidden.
+  2. Drop the pipes inside the room in a corner duct and penetrate below the window
+     sill. This shortens the outside duct but leaves a visible duct indoors.
+
+  Check the lintel position before drilling. Don't drill through the lintel or the window frame.
+- **Clearances:** keep the manual's minimums (about 100 mm behind and to the sides, plus clear
+  airflow in front). Check the clearance to the internal corner, and keep the discharge
+  air from blowing back into the open awning windows.
+- **Condensate:** the outdoor unit drains in heating mode. With a wall mount it will drip onto the
+  soil. Direct it away from the footing, or fit the drain socket and hose it to a drain.
+- **Site prep:** clear the debris and loose conduit from the area before the install.
 
 ## 7. Materials list
 
@@ -117,9 +137,10 @@ that the manual specifies.
 | 8 | 20/25 mm PVC drain, fittings, insulation | 6 m |
 | 9 | Condensate pump (only if no internal pump or fall) | 0–1 |
 | 10 | M10 threaded rod, nuts, washers, noggin timber | 1 set |
-| 11 | Wall bracket or ground pad, anti-vibration mounts, anchors | 1 set |
+| 11 | Wall brackets, anti-vibration mounts, chemical anchors and sleeves | 1 set |
 | 12 | Core-drill wall sleeve, sealant, duct tape, wall cover plate | 1 set |
-| 13 | Pipe duct or cover outside (optional) | as needed |
+| 13 | UV-stable pipe duct down the outside wall, with bends and wall inlet | ~2.5 m |
+| 14 | Outdoor unit drain socket and hose (heating condensate) | 1 |
 
 ## 8. Install sequence
 
@@ -138,8 +159,9 @@ that the manual specifies.
 
 - Is the room size and use suitable for 3.5 kW? Do a quick heat load check if needed.
 - Who is lining the ceiling? We need the unit hung and tested **before** the plasterboard goes on.
-- Is the outdoor location agreed? Wall bracket or ground?
-- What do the two existing isolators (photo 3) feed?
+- Are wall brackets OK? We recommend them over a ground mount because of the soil and the damp.
+- Is the client OK with a pipe duct on the outside wall, or do they prefer the pipes dropped inside?
+- Who clears the debris beside the wall before install day?
 - Where is the switchboard, and does it have spare capacity and RCD protection for the new circuit?
 - Wireless remote, or a wired wall controller or Wi-Fi adapter?
 
