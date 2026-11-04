@@ -3,7 +3,12 @@
 @page{size:A4;margin:0}
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#000}
-.page{width:210mm;height:297mm;position:relative;padding-top:4mm}
+.page{width:210mm;height:297mm;position:relative;padding-top:4mm;overflow:hidden;page-break-after:always}
+.page:last-child{page-break-after:auto}
+.ph{margin:6mm 10mm 0}.ph h2{background:#cfe7f9;font-size:10.4pt;margin:0 0 4mm;padding:1.9mm 2mm}
+.ph .imgs{display:flex;gap:6mm}.ph figure{margin:0;flex:1}.ph img{width:100%;border:1px solid #aaa;display:block}
+.ph figcaption{font-size:9.6pt;margin-top:1.8mm;line-height:1.3}
+.ph .note{margin-top:5mm;font-size:10pt;border:2px solid var(--blue);padding:3mm}
 :root{--blue:#2b5fb8;--navy:#1e4d9c;--red:#d13438}
 .topbar{position:relative;height:3px}
 .topbar .b{position:absolute;left:0;width:80.5%;height:3px;background:var(--blue)}
@@ -76,10 +81,11 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#000}
  <div class="row"><div class="d">Supply &amp; install new double WGPO in bathroom
   <ul>
    <li>Tap off existing double power point on kitchen splashback</li>
-   <li>Run new cable through wall cavity behind tiles to bathroom wall</li>
+   <li>Run new cable through wall cavity behind tiles to bathroom wall &ndash; <b>cable fully concealed behind the wall, no exposed cabling</b></li>
    <li>Cut tile &amp; install new double WGPO next to mirror, 400 mm above vanity (cable entering from left side)</li>
    <li>Test, RCD check &amp; Certificate of Compliance</li>
-  </ul></div><div class="q">1</div><div class="p">$500.00</div></div>
+  </ul>
+  <div style="margin-top:1.5mm;font-size:9.6pt;font-style:italic">Proposed cable route shown in attached photos (page 2).</div></div><div class="q">1</div><div class="p">$500.00</div></div>
 </div>
 <div class="tot"><div><span>SUBTOTAL</span><span>$500.00</span></div><div><span>GST</span><span>$50.00</span></div><div class="g"><span>TOTAL</span><span>$550.00</span></div></div>
 <div class="terms"><h3>TERMS &amp; CONDITIONS</h3>
@@ -93,4 +99,35 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#000}
 <div class="pay"><div class="l">Bank Transfer (EFT)</div><div style="padding-left:3.5mm"><b>Name</b>: HTB ELECTRICAL &amp; AIR CONDITIONDING P/L<br><b>BSB:</b> 082 343<br><b>Account Number:</b> 84 378 4720</div></div>
 <div style="margin-top:4.5mm"><b>Or pay ID to 0403 116 368</b></div></div>
 <div class="foot">We sincerely appreciate the opportunity and look forward to doing business with you.<div class="fbar"><div class="b"></div><div class="r"></div></div></div>
+</div><div class="page"><div class="topbar"><div class="b"></div><div class="r"></div></div>
+<div class="head">
+ <div class="logo">
+ <svg viewBox="0 0 380 182" width="100%">
+  <path d="M17,15H47V82H92V15H122V140H92V107H47V140H17Z" fill="#1e4d9c"/>
+  <path d="M92,15H246L238,38H92Z" fill="#1e4d9c"/>
+  <path d="M228,46H297C326,46 337,61 337,77C337,88 331,95 321,98C335,102 342,113 342,124C342,138 330,149 302,149H228Z M256,66V88H290C300,88 305,83 305,77C305,71 300,66 290,66Z M256,107V129H294C305,129 310,124 310,118C310,112 305,107 294,107Z" fill="#1e4d9c" fill-rule="evenodd"/>
+  <polygon points="200,38 146,112 170,112 138,152 222,78 194,78 216,38" fill="#d13438" stroke="#fff" stroke-width="3"/>
+  <g fill="none" stroke-linecap="round">
+   <path d="M262,104C295,86 318,112 372,84" stroke="#fff" stroke-width="13"/>
+   <path d="M262,104C295,86 318,112 372,84" stroke="#5aaaf0" stroke-width="7"/>
+   <path d="M270,118C303,100 326,126 376,98" stroke="#fff" stroke-width="13"/>
+   <path d="M270,118C303,100 326,126 376,98" stroke="#3d8fe0" stroke-width="7"/>
+   <path d="M278,132C311,114 334,140 378,112" stroke="#fff" stroke-width="12"/>
+   <path d="M278,132C311,114 334,140 378,112" stroke="#7cc0f5" stroke-width="6"/>
+  </g>
+  <text x="10" y="179" font-family="Arial" font-weight="700" font-size="19.5" fill="#1e4d9c" textLength="352" lengthAdjust="spacingAndGlyphs">ELECTRICAL &amp; AIR CONDITIONING</text>
+ </svg></div>
+ <div class="co"><div class="n">HTB ELECTRICAL &amp; AIR CONDITIONING PTY LTD</div>
+  <div class="abn">ABN 54 168 092 466 | Licence 376869C</div>
+  <div class="q">QUOTE</div>
+  <div class="ct">0403 116 368 | htbelectricalandaircon@outllook.com</div></div>
+</div>
+<div class="rule"><div class="r"></div><div class="t">PTY LTD</div><div class="b"></div></div>
+<div class="ph"><h2>PROPOSED CABLE ROUTE &ndash; Quote No. HTB59</h2>
+<div class="imgs">
+<figure><img src="kitchen_cable_run.jpg"><figcaption><b>Photo 1 &ndash; Kitchen:</b> Tap off existing double GPO; new cable runs inside the wall cavity behind the tiles to the right-hand wall and through to the bathroom side.</figcaption></figure>
+<figure><img src="bathroom_cable_run.jpg"><figcaption><b>Photo 2 &ndash; Bathroom:</b> New double WGPO next to mirror, 400 mm above vanity top, cable entering from the left side.</figcaption></figure>
+</div>
+<div class="note"><b>Note:</b> All new cabling will be hidden inside the wall cavity &ndash; no exposed cable or conduit on the kitchen or bathroom walls. Only the new WGPO will be visible. Red dashed lines on the photos show the approximate cable route inside the wall.</div>
+</div><div class="foot">We sincerely appreciate the opportunity and look forward to doing business with you.<div class="fbar"><div class="b"></div><div class="r"></div></div></div>
 </div></body></html>
