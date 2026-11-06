@@ -576,3 +576,6 @@ footer .todo { background: transparent; color: #ffd75e; border-color: #ffd75e; }
   .svc-banner { height: 170px; }
   .page-hero.has-photo { padding: 52px 0; }
 }
+.usp-link { text-decoration: none; }
+.usp-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.btn-navy-outline .ico-fill { color: var(--gold); }
