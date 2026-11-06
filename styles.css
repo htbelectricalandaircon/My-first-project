@@ -517,3 +517,10 @@ footer .todo { background: transparent; color: #ffd75e; border-color: #ffd75e; }
 @media (max-width: 640px) {
   .strip-inner { flex-direction: column; gap: 8px; }
 }
+
+/* Home welcome text */
+.welcome-inner { max-width: 820px; }
+.welcome-inner .section-title { margin-bottom: 24px; }
+.welcome-inner p { font-size: 1.05rem; margin-bottom: 16px; }
+.welcome-inner .welcome-lead { font-size: 1.2rem; font-weight: 600; color: var(--navy); }
+.welcome-inner .welcome-close { font-weight: 700; color: var(--navy); margin-bottom: 24px; }
