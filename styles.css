@@ -647,3 +647,4 @@ footer .todo { background: transparent; color: #ffd75e; border-color: #ffd75e; }
   .work-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .work figcaption { font-size: 0.8rem; padding: 28px 10px 8px; }
 }
+.profile .about-tony { text-align: left; color: var(--text); }
