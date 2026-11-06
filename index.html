@@ -3,688 +3,259 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HTB Electrical &amp; Air Conditioning | 24/7 Electrician Sydney</title>
+  <title>HTB Electrical &amp; Air Conditioning | North Sydney Electrician &amp; Air Con</title>
+  <meta name="description" content="HTB Electrical &amp; Air Conditioning Pty Ltd – family-owned North Sydney electricians and air conditioning technicians, available 24/7. Lic. 376869C.">
   <link rel="icon" type="image/png" href="images/icon.png">
   <link rel="apple-touch-icon" href="images/icon.png">
-  <meta name="description" content="HTB Electrical & Air Conditioning P/L – licensed Sydney electrician available 24/7. Electrical repairs, switchboard upgrades, aircon installation, EV chargers and more. Lic. 376869C.">
-  <style>
-    :root {
-      --navy: #0a4a8c;
-      --navy-dark: #062c55;
-      --blue: #1677d2;
-      --sky: #1a9cf0;
-      --blue-soft: #f1f7fd;
-      --blue-line: #d6e6f6;
-      --red: #e31b33;
-      --red-dark: #bf1328;
-      --text: #1d2433;
-      --muted: #5a6478;
-      --white: #ffffff;
-      --radius: 12px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-      background: var(--white);
-      line-height: 1.6;
-    }
-
-    a { color: inherit; }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
-
-    /* Line icons */
-    .ico {
-      width: 24px;
-      height: 24px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      flex-shrink: 0;
-    }
-
-    /* Top bar */
-    .topbar {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.85);
-      text-align: center;
-      font-size: 0.9rem;
-      padding: 7px 16px;
-    }
-    .topbar a { color: var(--white); font-weight: 700; text-decoration: none; white-space: nowrap; }
-
-    /* Header */
-    header {
-      background: var(--white);
-      color: var(--navy);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-    .brand { display: block; line-height: 0; }
-    .brand img { height: 60px; width: auto; }
-    .nav-links { display: flex; gap: 24px; list-style: none; }
-    .nav-links a { text-decoration: none; font-weight: 600; }
-    .nav-links a:hover { color: var(--red); }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 24px;
-      border-radius: var(--radius);
-      border: 2px solid transparent;
-      font: inherit;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
-    .btn:active { transform: scale(0.98); }
-    .btn .ico { width: 20px; height: 20px; stroke-width: 2.2; }
-    .btn-red { background: var(--red); color: var(--white); }
-    .btn-red:hover { background: var(--red-dark); }
-    .btn-outline { border-color: rgba(255,255,255,0.8); color: var(--white); background: transparent; }
-    .btn-outline:hover { background: rgba(255,255,255,0.1); }
-    .btn-blue-outline { border-color: var(--navy); color: var(--navy); background: var(--white); }
-    .btn-blue-outline:hover { background: var(--blue-soft); }
-    .btn-sm { padding: 9px 16px; font-size: 0.95rem; }
-
-    /* Hero */
-    .hero {
-      background:
-        radial-gradient(circle at 85% 20%, rgba(26,156,240,0.45), transparent 55%),
-        linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-      color: var(--white);
-      padding: 64px 0 72px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      margin-bottom: 18px;
-    }
-    .badge .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #3ddc84;
-      box-shadow: 0 0 0 3px rgba(61,220,132,0.25);
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 6vw, 3.2rem);
-      line-height: 1.15;
-      margin-bottom: 16px;
-    }
-    .hero p {
-      font-size: 1.12rem;
-      max-width: 620px;
-      opacity: 0.9;
-      margin-bottom: 28px;
-    }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-    .hero-points {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 24px;
-      margin-top: 32px;
-      list-style: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .hero-points li { display: flex; align-items: center; gap: 6px; }
-    .hero-points .ico { width: 18px; height: 18px; color: var(--sky); stroke-width: 2.4; }
-
-    /* Sections */
-    section { padding: 64px 0; }
-    .section-title {
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      color: var(--navy);
-      line-height: 1.2;
-    }
-    .section-title::after {
-      content: "";
-      display: block;
-      width: 56px;
-      height: 4px;
-      background: var(--red);
-      border-radius: 2px;
-      margin-top: 12px;
-    }
-    .section-intro { color: var(--muted); margin: 16px 0 32px; max-width: 640px; }
-
-    /* Services */
-    .services { background: var(--blue-soft); }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 22px;
-      border: 1px solid var(--blue-line);
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .card:hover { box-shadow: 0 8px 24px rgba(10,74,140,0.12); transform: translateY(-2px); }
-    .card .icon-wrap {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-      background: var(--blue-soft);
-      color: var(--blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-    .card .icon-wrap .ico { width: 26px; height: 26px; }
-    .card h3 { color: var(--navy); font-size: 1.05rem; line-height: 1.3; margin-bottom: 6px; }
-    .card p { color: var(--muted); font-size: 0.93rem; }
-
-    /* Why us */
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-    }
-    .why-item { display: flex; gap: 14px; align-items: flex-start; }
-    .why-item .icon-wrap {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--navy);
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .why-item h3 { color: var(--navy); font-size: 1.1rem; margin-bottom: 4px; }
-    .why-item p { color: var(--muted); }
-
-    /* Areas */
-    .areas { background: var(--navy); color: var(--white); }
-    .areas .section-title { color: var(--white); }
-    .areas .section-intro { color: rgba(255,255,255,0.8); }
-    .area-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      list-style: none;
-    }
-    .area-list li {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 10px 18px;
-      border-radius: 999px;
-      font-weight: 600;
-    }
-    .area-list .ico { width: 18px; height: 18px; color: var(--sky); }
-
-    /* Contact */
-    .contact-layout {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 32px;
-      align-items: start;
-    }
-    .contact-list { display: grid; gap: 14px; }
-    .contact-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      border: 1px solid var(--blue-line);
-      border-radius: var(--radius);
-      padding: 18px;
-      text-decoration: none;
-      transition: border-color 0.2s;
-    }
-    a.contact-card:hover { border-color: var(--blue); }
-    .contact-card .icon-wrap {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: var(--blue-soft);
-      color: var(--blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .contact-card .label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-    .contact-card .value { font-size: 1.15rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
-    .contact-card .sub { font-size: 0.85rem; color: var(--muted); overflow-wrap: anywhere; }
-
-    /* Quote form */
-    .quote-form {
-      background: var(--blue-soft);
-      border: 1px solid var(--blue-line);
-      border-radius: var(--radius);
-      padding: 24px;
-    }
-    .quote-form h3 { color: var(--navy); font-size: 1.25rem; margin-bottom: 4px; }
-    .quote-form .hint { color: var(--muted); font-size: 0.92rem; margin-bottom: 18px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .field { margin-bottom: 14px; }
-    .field label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; color: var(--navy); }
-    .field input, .field select, .field textarea {
-      width: 100%;
-      font: inherit;
-      font-size: 16px;
-      padding: 11px 12px;
-      border: 1px solid #c3d0e6;
-      border-radius: 8px;
-      background: var(--white);
-      color: var(--text);
-    }
-    .field input:focus, .field select:focus, .field textarea:focus {
-      outline: 2px solid var(--blue);
-      outline-offset: 1px;
-      border-color: var(--blue);
-    }
-    .field textarea { min-height: 96px; resize: vertical; }
-    .form-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-    .form-actions .btn { flex: 1 1 180px; }
-
-    /* CTA band */
-    .cta {
-      background: var(--red);
-      color: var(--white);
-      text-align: center;
-      padding: 48px 0;
-    }
-    .cta h2 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 8px; }
-    .cta p { margin-bottom: 24px; opacity: 0.95; }
-    .cta .btn { background: var(--white); color: var(--red); }
-    .cta .btn:hover { background: #ffe8e8; }
-
-    /* Footer */
-    footer {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.75);
-      padding: 28px 0;
-      font-size: 0.9rem;
-      text-align: center;
-    }
-    footer strong { color: var(--white); }
-
-    /* Floating call button (phones only, appears after scrolling past the top) */
-    .call-float {
-      position: fixed;
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      z-index: 20;
-      display: none;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-      transform: translateY(calc(100% + 32px));
-      transition: transform 0.25s ease;
-    }
-    .call-float.show { transform: translateY(0); }
-
-    @media (min-width: 1000px) {
-      .grid { grid-template-columns: repeat(5, 1fr); }
-    }
-
-    @media (max-width: 760px) {
-      .nav-links, .header-call { display: none; }
-      .call-float { display: flex; }
-      footer { padding-bottom: 96px; }
-      .hero { padding: 44px 0 52px; }
-      .brand img { height: 56px; }
-      section { padding: 48px 0; }
-      .hero-actions .btn { flex: 1 1 100%; }
-
-      /* Compact 2-column services on phones */
-      .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .card { padding: 14px; }
-      .card .icon-wrap { width: 40px; height: 40px; margin-bottom: 10px; }
-      .card .icon-wrap .ico { width: 22px; height: 22px; }
-      .card h3 { font-size: 0.95rem; margin-bottom: 0; }
-      .card p { display: none; }
-
-      .contact-layout { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; gap: 0; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Icon set -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
-    <symbol id="i-sms" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></symbol>
-    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
-    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
-    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></symbol>
-    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
-    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
-    <symbol id="i-board" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6v5M12 6v5M16 6v5M8 15h8M8 18h8"/></symbol>
-    <symbol id="i-aircon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="9" rx="2"/><path d="M6 9.5h12M7 16.5c0 1.5 1 2 1 3.5M12 16v4M17 16.5c0 1.5-1 2-1 3.5"/></symbol>
-    <symbol id="i-ev" viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M2 21h15M15 9h2a2 2 0 0 1 2 2v4a1.5 1.5 0 0 0 3 0V8l-3-3"/><path d="m10.5 7-2.5 4.5h3L8.5 16"/></symbol>
-    <symbol id="i-outlet" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8.5 8.5 10 11M15.5 8.5 14 11M12 14v3"/></symbol>
-    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2v.3h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/></symbol>
-    <symbol id="i-fan" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1.5"/><path d="M12 10.5C12 7.5 13 5 15 5s2 3-1.5 5.5M13.5 12c3 0 5.5 1 5.5 3s-3 2-5.5-1.5M12 13.5c0 3-1 5.5-3 5.5s-2-3 1.5-5.5M10.5 12C7.5 12 5 11 5 9s3-2 5.5 1.5"/></symbol>
-    <symbol id="i-network" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/></symbol>
-    <symbol id="i-tv" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
-    <symbol id="i-antenna" viewBox="0 0 24 24"><circle cx="12" cy="9" r="2"/><path d="M12 11v11M8 22h8M8.2 5.2a5.5 5.5 0 0 0 0 7.6M15.8 5.2a5.5 5.5 0 0 1 0 7.6M5.3 2.3a9.5 9.5 0 0 0 0 13.4M18.7 2.3a9.5 9.5 0 0 1 0 13.4"/></symbol>
-  </svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-board" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6v5M12 6v5M16 6v5M8 15h8M8 18h8"/></symbol>
+  <symbol id="i-aircon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="9" rx="2"/><path d="M6 9.5h12M7 16.5c0 1.5 1 2 1 3.5M12 16v4M17 16.5c0 1.5-1 2-1 3.5"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2v20M4.9 7l14.2 10M4.9 17 19.1 7M9 4l3 3 3-3M9 20l3-3 3 3"/></symbol>
+  <symbol id="i-ev" viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M2 21h15M15 9h2a2 2 0 0 1 2 2v4a1.5 1.5 0 0 0 3 0V8l-3-3"/><path d="m10.5 7-2.5 4.5h3L8.5 16"/></symbol>
+  <symbol id="i-outlet" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8.5 8.5 10 11M15.5 8.5 14 11M12 14v3"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2v.3h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/></symbol>
+  <symbol id="i-fan" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1.5"/><path d="M12 10.5C12 7.5 13 5 15 5s2 3-1.5 5.5M13.5 12c3 0 5.5 1 5.5 3s-3 2-5.5-1.5M12 13.5c0 3-1 5.5-3 5.5s-2-3 1.5-5.5M10.5 12C7.5 12 5 11 5 9s3-2 5.5 1.5"/></symbol>
+  <symbol id="i-ceilingfan" viewBox="0 0 24 24"><path d="M12 2v6M12 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM10 10H3l1.5 2H10M14 10h7l-1.5 2H14M12 12v4"/><circle cx="12" cy="18" r="2"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/></symbol>
+  <symbol id="i-tv" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-antenna" viewBox="0 0 24 24"><circle cx="12" cy="9" r="2"/><path d="M12 11v11M8 22h8M8.2 5.2a5.5 5.5 0 0 0 0 7.6M15.8 5.2a5.5 5.5 0 0 1 0 7.6M5.3 2.3a9.5 9.5 0 0 0 0 13.4M18.7 2.3a9.5 9.5 0 0 1 0 13.4"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M17 3l4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></symbol>
+  <symbol id="i-family" viewBox="0 0 24 24"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 21v-1a6 6 0 0 1 12 0v1M14 21v-.5a4 4 0 0 1 8 0v.5"/></symbol>
+</svg>
 
   <div class="topbar">
-    24/7 Emergency Service · Call <a href="tel:+61403116368">0403 116 368</a>
+    <div class="container">
+      <span><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><strong>Open 24 hours, 7 days</strong></span>
+      <div class="tb-right">
+        <a class="tb-mail" href="mailto:info@htbelectrical.com.au"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>info@htbelectrical.com.au</a>
+        <a href="tel:+61403116368"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><strong>0403 116 368</strong></a>
+      </div>
+    </div>
   </div>
 
   <header>
     <div class="container nav">
-      <a href="#top" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
-      <ul class="nav-links">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#areas">Areas</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <a href="index.html" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
+      <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="locations.html">Locations</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="quote.html" class="btn btn-red btn-sm">Get a Quote</a></li>
       </ul>
-      <a href="tel:+61403116368" class="btn btn-red btn-sm header-call"><svg class="ico"><use href="#i-phone"/></svg>Call Now</a>
     </div>
   </header>
 
-  <main id="top">
-    <!-- Hero -->
-    <section class="hero" id="hero">
-      <div class="container">
-        <span class="badge"><span class="dot"></span>OPEN 24 HOURS · 7 DAYS</span>
-        <h1>Licensed Electrician &amp; Air Conditioning Specialist in Sydney</h1>
-        <p>From electrical repairs and switchboard upgrades to aircon installations and EV chargers – HTB Electrical &amp; Air Conditioning is here for your home or business, day or night.</p>
-        <div class="hero-actions">
-          <a href="tel:+61403116368" class="btn btn-red"><svg class="ico"><use href="#i-phone"/></svg>Call 0403 116 368</a>
-          <a href="#contact" class="btn btn-outline">Get a Free Quote</a>
-        </div>
-        <ul class="hero-points">
-          <li><svg class="ico"><use href="#i-check"/></svg>Licensed – Lic. 376869C</li>
-          <li><svg class="ico"><use href="#i-check"/></svg>Available 24/7</li>
-          <li><svg class="ico"><use href="#i-check"/></svg>Residential &amp; Commercial</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Services -->
-    <section class="services" id="services">
-      <div class="container">
-        <h2 class="section-title">Our Services</h2>
-        <p class="section-intro">Quality electrical and air conditioning work, done safely and to standard.</p>
-        <div class="grid">
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-wrench"/></svg></div>
-            <h3>Electrical Repairs</h3>
-            <p>Fault finding and repairs for power outages, tripping circuits, faulty wiring and more.</p>
-          </div>
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-board"/></svg></div>
-            <h3>Switchboard Upgrades</h3>
-            <p>Upgrade old switchboards with modern circuit breakers and safety switches.</p>
-          </div>
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-aircon"/></svg></div>
-            <h3>Air Conditioning</h3>
-            <p>Supply and installation of split system and ducted air conditioning.</p>
-          </div>
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-ev"/></svg></div>
-            <h3>EV Chargers</h3>
-            <p>Home and business electric vehicle charger installation.</p>
-          </div>
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-outlet"/></svg></div>
-            <h3>Power Points</h3>
-            <p>New and additional power points, USB outlets and relocations.</p>
-          </div>
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-bulb"/></svg></div>
-            <h3>LED Strip Lighting</h3>
-            <p>Feature and under-cabinet LED strip lighting for kitchens, living areas and shops.</p>
-          </div>
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-fan"/></svg></div>
-            <h3>Exhaust Fans</h3>
-            <p>Bathroom, kitchen and laundry exhaust fan installation and replacement.</p>
-          </div>
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-network"/></svg></div>
-            <h3>Network Cabling</h3>
-            <p>Data points and network cabling for homes and offices.</p>
-          </div>
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-tv"/></svg></div>
-            <h3>TV Wall Mounting</h3>
-            <p>Secure TV wall mounting with neat, concealed cabling.</p>
-          </div>
-          <div class="card">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-antenna"/></svg></div>
-            <h3>TV Antennas</h3>
-            <p>Antenna installation, repairs and extra TV points.</p>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot"></span>OPEN 24 HOURS · 7 DAYS</span>
+          <h1>North Sydney Electrical &amp; Air Conditioning Specialists</h1>
+          <p class="lead">Family-owned electricians and air conditioning technicians, servicing homes and businesses across Sydney.</p>
+          <ul class="usp-list">
+            <li><span class="usp-ico"><svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg></span>Fast, local &amp; reliable</li>
+            <li><span class="usp-ico stars"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg></span>5-star Google rating</li>
+            <li><span class="usp-ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span>Fully licensed &amp; insured</li>
+          </ul>
+          <div class="hero-actions">
+            <a href="tel:+61403116368" class="btn btn-red"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Call 0403 116 368</a>
+            <a href="services.html" class="btn btn-outline">Our Services</a>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Why choose us -->
-    <section id="why">
-      <div class="container">
-        <h2 class="section-title">Why Choose HTB?</h2>
-        <p class="section-intro">One call covers your electrical, air conditioning and cabling needs.</p>
-        <div class="why-grid">
-          <div class="why-item">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-shield"/></svg></div>
-            <div>
-              <h3>Fully Licensed</h3>
-              <p>Licensed electrical contractor – Licence No. 376869C.</p>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-clock"/></svg></div>
-            <div>
-              <h3>24/7 Availability</h3>
-              <p>Electrical emergencies don't wait. We answer the phone around the clock.</p>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="icon-wrap"><svg class="ico"><use href="#i-layers"/></svg></div>
-            <div>
-              <h3>All-in-One Service</h3>
-              <p>Electrical, air conditioning, data and AV work – all from one trusted team.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Areas -->
-    <section class="areas" id="areas">
-      <div class="container">
-        <h2 class="section-title">Areas We Service</h2>
-        <p class="section-intro">Proudly servicing homes and businesses across Sydney.</p>
-        <ul class="area-list">
-          <li><svg class="ico"><use href="#i-pin"/></svg>Sydney CBD</li>
-          <li><svg class="ico"><use href="#i-pin"/></svg>Eastern Suburbs</li>
-          <li><svg class="ico"><use href="#i-pin"/></svg>Inner West</li>
-          <li><svg class="ico"><use href="#i-pin"/></svg>Lower North Shore</li>
-          <li><svg class="ico"><use href="#i-pin"/></svg>Upper North Shore</li>
-          <li><svg class="ico"><use href="#i-pin"/></svg>Northern Beaches</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-      <div class="container">
-        <h2 class="section-title">Contact Us</h2>
-        <p class="section-intro">Call any time, or send us your job details for a free quote.</p>
-        <div class="contact-layout">
-          <div class="contact-list">
-            <a class="contact-card" href="tel:+61403116368">
-              <div class="icon-wrap"><svg class="ico"><use href="#i-phone"/></svg></div>
-              <div>
-                <div class="label">Call us 24/7</div>
-                <div class="value">0403 116 368</div>
-              </div>
-            </a>
-            <a class="contact-card" href="mailto:htbelectricalandaircon@outlook.com?subject=Quote%20request">
-              <div class="icon-wrap"><svg class="ico"><use href="#i-mail"/></svg></div>
-              <div>
-                <div class="label">Email</div>
-                <div class="value">Email us</div>
-                <div class="sub">htbelectricalandaircon@outlook.com</div>
-              </div>
-            </a>
-            <div class="contact-card">
-              <div class="icon-wrap"><svg class="ico"><use href="#i-clock"/></svg></div>
-              <div>
-                <div class="label">Business hours</div>
-                <div class="value">Open 24 hours, 7 days</div>
-              </div>
-            </div>
-          </div>
-
-          <form class="quote-form" id="quote-form" novalidate>
-            <h3>Request a Free Quote</h3>
-            <p class="hint">Fill in your details and send them to us by text message or email.</p>
-            <div class="form-row">
-              <div class="field">
-                <label for="q-name">Your name</label>
-                <input id="q-name" name="name" type="text" autocomplete="name" required>
-              </div>
-              <div class="field">
-                <label for="q-phone">Phone number</label>
-                <input id="q-phone" name="phone" type="tel" autocomplete="tel" required>
-              </div>
+        <div id="quote">
+          <form class="form-card" action="https://formsubmit.co/info@htbelectrical.com.au" method="POST">
+            <input type="hidden" name="_subject" value="New quote request – website (home page)">
+            <input type="hidden" name="_next" value="https://htbelectricalandaircon.github.io/my-first-project/thanks.html">
+            <input type="hidden" name="_template" value="table">
+            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+            <h2>Get a Free Quote</h2>
+            <p class="hint">Fill in your details and we'll be in contact as soon as we can.</p>
+            <div class="field">
+              <label for="h-name">Full name</label>
+              <input id="h-name" name="name" type="text" autocomplete="name" required>
             </div>
             <div class="form-row">
               <div class="field">
-                <label for="q-suburb">Suburb</label>
-                <input id="q-suburb" name="suburb" type="text" autocomplete="address-level2" required>
+                <label for="h-phone">Phone</label>
+                <input id="h-phone" name="phone" type="tel" autocomplete="tel" required>
               </div>
               <div class="field">
-                <label for="q-service">Service needed</label>
-                <select id="q-service" name="service" required>
-                  <option value="">Select a service…</option>
-                  <option>Electrical Repairs</option>
-                  <option>Switchboard Upgrade</option>
-                  <option>Air Conditioning Installation</option>
-                  <option>EV Charger Installation</option>
-                  <option>Power Point Installation</option>
-                  <option>LED Strip Lighting</option>
-                  <option>Exhaust Fan</option>
-                  <option>Network Cabling</option>
-                  <option>TV Wall Mounting</option>
-                  <option>TV Antenna</option>
-                  <option>Other</option>
-                </select>
+                <label for="h-email">Email</label>
+                <input id="h-email" name="email" type="email" autocomplete="email" required>
               </div>
             </div>
             <div class="field">
-              <label for="q-message">Job details</label>
-              <textarea id="q-message" name="message" placeholder="Briefly describe the job…"></textarea>
+              <label for="h-suburb">Suburb</label>
+              <input id="h-suburb" name="suburb" type="text" autocomplete="address-level2" required>
             </div>
-            <div class="form-actions">
-              <button type="button" class="btn btn-red" data-send="sms"><svg class="ico"><use href="#i-sms"/></svg>Send by Text</button>
-              <button type="button" class="btn btn-blue-outline" data-send="email"><svg class="ico"><use href="#i-mail"/></svg>Send by Email</button>
+            <div class="field">
+              <label for="h-service">Service needed</label>
+              <select id="h-service" name="service" required>
+                  <option value="">Select a service…</option>
+                  <optgroup label="Electrical"><option>Electrical repairs &amp; fault finding</option><option>Switchboard upgrade</option><option>Ceiling fan installation</option><option>Power point installation</option><option>LED strip lighting</option><option>Exhaust fan installation</option><option>EV charger installation</option><option>Network cabling</option><option>TV wall mounting</option><option>TV antenna</option></optgroup><optgroup label="Air conditioning"><option>Split system air conditioning installation</option><option>Air conditioner replacement</option><option>Air conditioning service &amp; maintenance</option><option>Air conditioning repairs</option></optgroup>
+                  <option>Other</option>
+                </select>
             </div>
+            <div class="field">
+              <label for="h-message">How can we help?</label>
+              <textarea id="h-message" name="message" placeholder="Briefly describe the work you need…" style="min-height:80px"></textarea>
+            </div>
+            <button type="submit" class="btn btn-red btn-block">Get My Free Quote</button>
+            <p class="form-note">Want to send photos? Use our <a href="quote.html">full quote form</a>.</p>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
+    <div class="strip">
+      <div class="container strip-inner">
+        <span class="strip-label">Proudly servicing Sydney with:</span>
+        <span class="strip-item"><svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>Electrical Service &amp; Repairs</span>
+        <span class="strip-item"><svg class="ico" aria-hidden="true"><use href="#i-aircon"/></svg>Split System Air Conditioning Installation</span>
+      </div>
+    </div>
+
+    <section class="bg-soft">
+      <div class="container">
+        <div class="center">
+          <h2 class="section-title">Our Services</h2>
+          <p class="section-intro">One call covers your electrical work and your air conditioning – installation, servicing and repairs.</p>
+        </div>
+        <div class="cat-grid">
+          <div class="cat-card">
+            <div class="icon-wrap"><svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg></div>
+            <h3>Electrical Services</h3>
+            <p>Safe, reliable electrical work for homes and businesses – from small repairs to new installations.</p>
+            <ul class="tick-list"><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Electrical Repairs & Fault Finding</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Switchboard Upgrades</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Ceiling Fan Installation</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Power Point Installation</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>LED Strip Lighting</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>…and more</li></ul>
+            <a class="more" href="services.html#electrical">View services →</a>
+          </div>
+          <div class="cat-card">
+            <div class="icon-wrap"><svg class="ico" aria-hidden="true"><use href="#i-aircon"/></svg></div>
+            <h3>Air Conditioning Installation</h3>
+            <p>Stay cool in summer and warm in winter with a professionally installed split system.</p>
+            <ul class="tick-list"><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Split System Installation</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Air Conditioner Replacement</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Dedicated Power Circuits</li></ul>
+            <a class="more" href="services.html#ac-installation">View services →</a>
+          </div>
+          <div class="cat-card">
+            <div class="icon-wrap"><svg class="ico" aria-hidden="true"><use href="#i-snow"/></svg></div>
+            <h3>Air Conditioning Service, Maintenance & Repairs</h3>
+            <p>Keep your air conditioner running efficiently and fix problems fast.</p>
+            <ul class="tick-list"><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Servicing & Maintenance</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Air Conditioning Repairs</li></ul>
+            <a class="more" href="services.html#ac-service">View services →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="center">
+          <h2 class="section-title">What Our Clients Say</h2>
+          <p class="section-intro">Hear from our customers.</p>
+        </div>
+        <div class="review-grid">
+          <div class="review">
+            <div class="stars"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg></div>
+            <blockquote class="todo">[Paste a real customer review from Google here]</blockquote>
+            <div class="who"><span class="todo">[Customer first name]</span></div>
+            <div class="where"><span class="todo">[Suburb]</span></div>
+          </div>
+          <div class="review">
+            <div class="stars"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg></div>
+            <blockquote class="todo">[Paste a real customer review from Google here]</blockquote>
+            <div class="who"><span class="todo">[Customer first name]</span></div>
+            <div class="where"><span class="todo">[Suburb]</span></div>
+          </div>
+          <div class="review">
+            <div class="stars"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg></div>
+            <blockquote class="todo">[Paste a real customer review from Google here]</blockquote>
+            <div class="who"><span class="todo">[Customer first name]</span></div>
+            <div class="where"><span class="todo">[Suburb]</span></div>
+          </div>
+        </div>
+        <p class="center" style="margin-top:24px"><span class="todo">[Link to your Google reviews page]</span></p>
+      </div>
+    </section>
+
+    <section class="bg-soft">
+      <div class="container center">
+        <h2 class="section-title">Areas We Service</h2>
+        <p class="section-intro">Based in North Sydney, we work Sydney wide, including:</p>
+        <ul class="chips" style="justify-content:center;margin-bottom:24px">
+          <li>Lower North Shore</li><li>Upper North Shore</li><li>Northern Beaches</li><li>Ryde District</li><li>Inner West</li><li>Hills District</li><li>Eastern Suburbs</li>
+        </ul>
+        <a href="locations.html" class="btn btn-navy-outline">See all suburbs</a>
+      </div>
+    </section>
+
     <div class="cta">
       <div class="container">
-        <h2>Need an electrician now?</h2>
-        <p>We're available 24 hours a day for emergencies and bookings.</p>
-        <a href="tel:+61403116368" class="btn"><svg class="ico"><use href="#i-phone"/></svg>Call 0403 116 368</a>
+        <h2>Need an electrician or air conditioning technician?</h2>
+        <p>We're available 24 hours a day, 7 days a week.</p>
+        <div class="actions">
+          <a href="tel:+61403116368" class="btn btn-white"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Call 0403 116 368</a>
+          <a href="quote.html" class="btn btn-outline">Get a Free Quote</a>
+        </div>
       </div>
     </div>
   </main>
 
   <footer>
     <div class="container">
-      <p><strong>HTB Electrical &amp; Air Conditioning Pty Ltd</strong></p>
-      <p>Licence No. 376869C · Servicing Sydney</p>
-      <p>&copy; <span id="year">2026</span> HTB Electrical &amp; Air Conditioning Pty Ltd. All rights reserved.</p>
+      <div class="foot-grid">
+        <div>
+          <h3>HTB Electrical &amp; Air Conditioning Pty Ltd</h3>
+          <p class="tag">North Sydney Electrical &amp; Air Conditioning Technicians</p>
+          <ul style="margin-top:14px">
+            <li>ABN: <span class="todo">[your ABN]</span></li>
+            <li>Electrical Licence No: 376869C</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="services.html">Our Services</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="locations.html">Areas We Service</a></li>
+            <li><a href="quote.html">Get a Quote or Booking</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <ul>
+            <li><a class="line" href="tel:+61403116368"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>0403 116 368</a></li>
+            <li><a class="line" href="mailto:info@htbelectrical.com.au"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>info@htbelectrical.com.au</a></li>
+            <li class="line"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Open 24 hours, 7 days</li>
+            <li class="line"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>North Sydney NSW</li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">&copy; <span id="year">2026</span> HTB Electrical &amp; Air Conditioning Pty Ltd. All rights reserved.</div>
     </div>
   </footer>
 
-  <a href="tel:+61403116368" class="btn btn-red call-float" id="call-float"><svg class="ico"><use href="#i-phone"/></svg>Call Now – 0403 116 368</a>
+  <a href="tel:+61403116368" class="btn btn-red call-float" id="call-float"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Call Now – 0403 116 368</a>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Show the floating call button only after the top section scrolls out of view
-    var floatBtn = document.getElementById("call-float");
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        floatBtn.classList.toggle("show", !entries[0].isIntersecting);
-      }).observe(document.getElementById("hero"));
-    } else {
-      floatBtn.classList.add("show");
-    }
-
-    // Quote form: builds a text message or email with the customer's details
-    var form = document.getElementById("quote-form");
-    form.querySelectorAll("[data-send]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        if (!form.reportValidity()) return;
-        var f = form.elements;
-        var body =
-          "Quote request\n" +
-          "Name: " + f.name.value + "\n" +
-          "Phone: " + f.phone.value + "\n" +
-          "Suburb: " + f.suburb.value + "\n" +
-          "Service: " + f.service.value + "\n" +
-          (f.message.value ? "Details: " + f.message.value : "");
-        if (btn.dataset.send === "sms") {
-          window.location.href = "sms:+61403116368?&body=" + encodeURIComponent(body);
-        } else {
-          window.location.href = "mailto:htbelectricalandaircon@outlook.com?subject=" +
-            encodeURIComponent("Quote request – " + f.service.value + " – " + f.suburb.value) +
-            "&body=" + encodeURIComponent(body);
-        }
-      });
-    });
-  </script>
+  <script src="site.js"></script>
 </body>
 </html>
