@@ -6,7 +6,7 @@ PHONE = "0403 116 368"
 TEL = "tel:+61403116368"
 EMAIL = "info@htbelectrical.com.au"
 LICENCE = "376869C"
-SITE = "https://htbelectricalandaircon.github.io/My-first-project"
+SITE = "https://htbelectrical.com.au"
 GOOGLE_PROFILE = "https://www.google.com/maps/search/?api=1&amp;query=HTB%20ELECTRICAL%20%26%20AIR%20CONDITIONING%20P%2FL"
 GOOGLE_REVIEW = "https://g.page/htbelectrical/review?rc"
 FORM_ACTION = "https://formsubmit.co/" + EMAIL
