@@ -658,3 +658,15 @@ footer .todo { background: transparent; color: #ffd75e; border-color: #ffd75e; }
   .welcome-grid { grid-template-columns: 1fr; }
   .welcome-img { max-height: none; }
 }
+
+/* Electrical Services: show the whole photo, uncropped */
+.svc-banner.svc-banner-full {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 640px;
+  object-fit: contain;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 640px) { .svc-banner.svc-banner-full { max-height: none; width: 100%; } }
