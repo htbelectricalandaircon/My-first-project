@@ -309,6 +309,7 @@ WORK = [
     ("work-split-system.jpg", "Split system air conditioning installation"),
     ("work-switchboard.jpg", "Switchboard upgrade with RCD safety switches"),
     ("work-ev-charger.jpg", "Tesla EV charger installation"),
+    ("work-ceiling-fan.jpg", "Ceiling fan with light installation"),
     ("work-pendants.jpg", "Pendant light installation"),
     ("work-downlights.jpg", "LED downlight installation"),
     ("work-led-stairs.jpg", "LED strip lighting on staircase"),
