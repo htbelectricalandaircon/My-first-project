@@ -650,3 +650,11 @@ footer .todo { background: transparent; color: #ffd75e; border-color: #ffd75e; }
 .profile .about-tony { text-align: left; color: var(--text); }
 .map-btn { margin-top: 14px; }
 .map { background: var(--blue-soft); }
+
+/* Welcome photo: show the whole van, uncropped */
+.welcome-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+.welcome-img { height: auto; max-height: none; aspect-ratio: auto; object-fit: contain; }
+@media (max-width: 960px) {
+  .welcome-grid { grid-template-columns: 1fr; }
+  .welcome-img { max-height: none; }
+}
