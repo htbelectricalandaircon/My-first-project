@@ -658,3 +658,24 @@ footer .todo { background: transparent; color: #ffd75e; border-color: #ffd75e; }
   .welcome-grid { grid-template-columns: 1fr; }
   .welcome-img { max-height: none; }
 }
+
+/* Top bar: slow scrolling ticker */
+.topbar { overflow: hidden; }
+.ticker { overflow: hidden; padding: 7px 0; }
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker-group { display: flex; align-items: center; gap: 56px; padding-right: 56px; flex-shrink: 0; }
+.ticker-group > * { white-space: nowrap; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (min-width: 900px) {
+  .ticker-group { gap: 120px; padding-right: 120px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  .ticker-group[aria-hidden="true"] { display: none; }
+  .ticker-group { flex-wrap: wrap; justify-content: center; width: 100vw; padding: 0 16px; gap: 6px 24px; }
+}

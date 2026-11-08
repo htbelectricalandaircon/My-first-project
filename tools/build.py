@@ -83,11 +83,18 @@ def page(filename, title, description, body, active=None):
 {ICONS}
 
   <div class="topbar">
-    <div class="container">
-      <span>{ico("clock")}<strong>Open 24 hours, 7 days</strong></span>
-      <div class="tb-right">
-        <a class="tb-mail" href="mailto:{EMAIL}">{ico("mail")}{EMAIL}</a>
-        <a href="{TEL}">{ico("phone")}<strong>{PHONE}</strong></a>
+    <div class="ticker">
+      <div class="ticker-track">
+        <div class="ticker-group">
+          <span>{ico("clock")}<strong>Open 24 hours, 7 days</strong></span>
+          <a href="mailto:{EMAIL}">{ico("mail")}{EMAIL}</a>
+          <a href="{TEL}">{ico("phone")}<strong>{PHONE}</strong></a>
+        </div>
+        <div class="ticker-group" aria-hidden="true">
+          <span>{ico("clock")}<strong>Open 24 hours, 7 days</strong></span>
+          <a tabindex="-1" href="mailto:{EMAIL}">{ico("mail")}{EMAIL}</a>
+          <a tabindex="-1" href="{TEL}">{ico("phone")}<strong>{PHONE}</strong></a>
+        </div>
       </div>
     </div>
   </div>
