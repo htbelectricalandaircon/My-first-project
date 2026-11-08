@@ -595,7 +595,7 @@ contact = page_hero("Contact Us", "We're always happy to hear from you.", photo=
           </div>
           <a href="quote.html" class="btn btn-red">Request a quote or booking here</a>
           <div class="map">
-            <iframe src="https://maps.google.com/maps?q=HTB%20ELECTRICAL%20%26%20AIR%20CONDITIONING%20P%2FL%2C%20North%20Sydney%20NSW&amp;z=13&amp;output=embed" title="HTB Electrical &amp; Air Conditioning on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://maps.google.com/maps?q=North%20Sydney%20NSW%202060&amp;z=13&amp;output=embed" title="Map of North Sydney, where HTB Electrical &amp; Air Conditioning is based" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
           <a class="btn btn-navy-outline map-btn" href="{GOOGLE_PROFILE}" target="_blank" rel="noopener">{ico("pin")}Open in Google Maps</a>
         </div>
