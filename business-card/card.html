@@ -19,85 +19,102 @@
 
   /* ---------- FRONT ---------- */
   .front{background:#fff}
-  .front .logo{position:absolute;left:7mm;top:14mm;width:39mm}
-  .front .divider{position:absolute;left:50mm;top:9.5mm;height:30mm;width:.35mm;background:#d6e6f6}
-  .front .info{position:absolute;left:53.5mm;top:9mm;right:7mm}
-  .name{font-weight:800;color:var(--navy);font-size:9.6pt;line-height:1.05;letter-spacing:.01em}
-  .role{font-size:5.6pt;color:var(--muted);margin-top:1mm;font-weight:500;letter-spacing:.02em}
-  .contact{margin-top:3.6mm;display:flex;flex-direction:column;gap:2mm}
-  .row{display:flex;align-items:center;gap:1.8mm;font-size:6.6pt;font-weight:600;color:var(--text);white-space:nowrap}
-  .row.phone{font-size:8.6pt;font-weight:800;color:var(--navy)}
-  .ic{flex:none;width:4.2mm;height:4.2mm;border-radius:50%;background:var(--navy);display:grid;place-items:center}
+  /* angled panel with red + sky stripes, echoing the lines under the logo */
+  .slab{position:absolute;inset:0}
+  .slab.sky {background:var(--sky); clip-path:polygon(47.4mm 0,100% 0,100% 100%,37.4mm 100%)}
+  .slab.red {background:var(--red); clip-path:polygon(49.2mm 0,100% 0,100% 100%,39.2mm 100%)}
+  .slab.navy{background:linear-gradient(160deg,#0d5aa6 0%,var(--navy) 45%,var(--navy-dark) 100%);
+             clip-path:polygon(51mm 0,100% 0,100% 100%,41mm 100%)}
+  .slab.glow{background:radial-gradient(circle at 100% 0%,rgba(26,156,240,.35),transparent 45%);
+             clip-path:polygon(51mm 0,100% 0,100% 100%,41mm 100%)}
+
+  .front .logo{position:absolute;left:6.4mm;top:15mm;width:34mm}
+  .creds{position:absolute;left:7mm;bottom:7.2mm;font-size:5pt;line-height:1.5;color:var(--muted);font-weight:500;letter-spacing:.03em}
+  .creds b{color:var(--navy);font-weight:700}
+
+  .info{position:absolute;left:53.5mm;right:6.5mm;top:8.4mm;color:#fff}
+  .name{font-weight:800;font-size:10pt;line-height:1.02;letter-spacing:.01em}
+  .name span{display:block;font-size:7.4pt;color:#bfe3ff;font-weight:700;margin-top:.5mm}
+  .role{display:flex;align-items:center;gap:1.4mm;margin-top:1.6mm;font-size:4.9pt;font-weight:700;letter-spacing:.16em;color:var(--sky);text-transform:uppercase}
+  .role::before{content:"";width:4mm;height:.5mm;background:var(--red)}
+  .contact{margin-top:4.6mm;display:flex;flex-direction:column;gap:2.3mm}
+  .row{display:flex;align-items:center;gap:1.6mm;font-size:5.9pt;font-weight:600;white-space:nowrap}
+  .row.phone{font-size:9pt;font-weight:800;letter-spacing:.02em}
+  .ic{flex:none;width:3.7mm;height:3.7mm;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center}
   .ic.red{background:var(--red)}
-  .ic svg{width:2.5mm;height:2.5mm;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-  .band{position:absolute;left:0;right:0;bottom:0;height:13mm;background:var(--navy)}
-  .band::before{content:"";position:absolute;left:0;right:0;top:0;height:.9mm;background:var(--red)}
-  .band .txt{position:absolute;left:7mm;right:7mm;top:.9mm;height:9.1mm;display:flex;align-items:center;justify-content:space-between;color:#fff;font-size:6pt;font-weight:600;letter-spacing:.04em}
-  .band .txt b{color:var(--gold);font-weight:700}
-  .tag{background:var(--red);color:#fff;font-weight:800;font-size:5.6pt;letter-spacing:.08em;padding:.9mm 2.2mm;border-radius:1mm}
+  .ic svg{width:2.2mm;height:2.2mm;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  .badge{position:absolute;right:6.5mm;bottom:6.6mm;background:var(--gold);color:var(--navy-dark);font-weight:900;font-size:5.4pt;letter-spacing:.12em;padding:1mm 2.2mm;border-radius:.8mm;box-shadow:0 .4mm 0 rgba(0,0,0,.25)}
 
   /* ---------- BACK ---------- */
-  .back{background:var(--navy);color:#fff}
-  .back::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 100% 0%,rgba(26,156,240,.28),transparent 55%)}
-  .back .waves{position:absolute;right:-2mm;bottom:3mm;width:44mm;opacity:.22;z-index:1}
-  .back .inner{position:absolute;left:7.5mm;right:7.5mm;top:7mm;bottom:6.5mm;z-index:2;display:flex;flex-direction:column}
-  .head{display:flex;align-items:center;gap:2mm;font-weight:800;font-size:8.4pt;letter-spacing:.14em}
-  .head .bolt{width:3.4mm;height:4.4mm}
-  .head .dot{color:var(--sky)}
-  .sub{font-size:6pt;color:#bcd6f2;margin-top:1mm;font-weight:500}
-  .list{list-style:none;margin-top:4mm;display:grid;grid-template-columns:1fr 1fr;column-gap:3mm;row-gap:2.1mm}
-  .list li{position:relative;padding-left:2.8mm;font-size:6.1pt;line-height:1.2;font-weight:500}
-  .list li::before{content:"";position:absolute;left:0;top:.75mm;width:1.2mm;height:1.2mm;background:var(--sky);transform:rotate(45deg)}
-  .list li b{font-weight:700}
+  .back{background:linear-gradient(155deg,#0d5aa6 0%,var(--navy) 40%,var(--navy-dark) 100%);color:#fff}
+  .back .glow{position:absolute;inset:0;background:radial-gradient(circle at 100% 0%,rgba(26,156,240,.35),transparent 50%)}
+  .back .waves{position:absolute;right:-6mm;top:4mm;width:46mm;opacity:.16}
+  .back .stripe{position:absolute;left:0;right:0;bottom:0;height:3.6mm;background:var(--red)}
+  .back .stripe::before{content:"";position:absolute;left:0;right:0;top:-1.2mm;height:1.2mm;background:var(--sky)}
+  .back .inner{position:absolute;left:7.5mm;right:7.5mm;top:7.4mm;bottom:8.6mm;display:flex;flex-direction:column}
+  .eyebrow{font-size:5pt;font-weight:700;letter-spacing:.24em;color:var(--sky)}
+  .eyebrow i{font-style:normal;color:var(--red)}
+  .headline{margin-top:1mm;font-size:13.5pt;font-weight:900;line-height:1;letter-spacing:-.01em}
+  .headline em{font-style:normal;color:var(--sky)}
+  .grid{margin-top:3.6mm;display:grid;grid-template-columns:repeat(4,1fr);row-gap:2.4mm;column-gap:1.5mm}
+  .svc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.9mm}
+  .svc .i{width:6.6mm;height:6.6mm;border-radius:1.6mm;background:rgba(255,255,255,.1);border:.25mm solid rgba(26,156,240,.55);display:grid;place-items:center}
+  .svc svg{width:4mm;height:4mm;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .svc svg .acc{stroke:var(--gold)}
+  .svc span{font-size:4.7pt;font-weight:600;line-height:1.15;color:#e3f1ff}
   .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between}
-  .promise{font-size:6.2pt;font-weight:700;color:var(--gold);letter-spacing:.02em}
-  .cta{background:var(--red);color:#fff;font-weight:800;font-size:6.2pt;letter-spacing:.08em;padding:1.1mm 2.6mm;border-radius:1mm}
+  .promise{font-size:5.1pt;line-height:1.45;color:#bcd6f2;font-weight:500}
+  .promise b{color:var(--gold);font-weight:700}
+  .cta{display:flex;align-items:center;gap:1.6mm}
+  .cta .free{background:var(--gold);color:var(--navy-dark);font-weight:900;font-size:5pt;letter-spacing:.12em;padding:.9mm 1.8mm;border-radius:.8mm}
+  .cta .num{font-size:9.6pt;font-weight:900;letter-spacing:.02em}
 </style>
 </head>
 <body>
 
 <!-- FRONT -->
 <section class="card front">
+  <div class="slab sky"></div><div class="slab red"></div><div class="slab navy"></div><div class="slab glow"></div>
+
   <img class="logo" src="logo.png" alt="HTB Electrical &amp; Air Conditioning">
-  <div class="divider"></div>
+  <div class="creds">Licence <b>376869C</b><br>ABN <b>54 168 092 466</b></div>
+
   <div class="info">
-    <div class="name">HUU TOAI<br>(TONY) BUI</div>
-    <div class="role">Electrical &amp; Air Conditioning</div>
+    <div class="name">TONY BUI<span>Huu Toai Bui</span></div>
+    <div class="role">Electrical &amp; Air Con</div>
     <div class="contact">
       <div class="row phone"><span class="ic red"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>0403 116 368</div>
       <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>info@htbelectrical.com.au</div>
       <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span>htbelectrical.com.au</div>
     </div>
   </div>
-  <div class="band"><div class="txt">
-    <span>LICENCE <b>376869C</b></span>
-    <span class="tag">FREE QUOTE</span>
-    <span>ABN <b>54 168 092 466</b></span>
-  </div></div>
+  <div class="badge">FREE QUOTE</div>
 </section>
 
 <!-- BACK -->
 <section class="card back">
+  <div class="glow"></div>
   <svg class="waves" viewBox="0 0 200 80"><g fill="none" stroke="#1a9cf0" stroke-width="7" stroke-linecap="round"><path d="M5 20c30-15 60 15 95 0s65-15 95 0"/><path d="M5 42c30-15 60 15 95 0s65-15 95 0"/><path d="M5 64c30-15 60 15 95 0s65-15 95 0"/></g></svg>
+  <div class="stripe"></div>
+
   <div class="inner">
-    <div class="head">
-      <svg class="bolt" viewBox="0 0 16 22"><path d="M10 0 1 13h6l-2 9 10-14H9z" fill="#e31b33"/></svg>
-      SUPPLY <span class="dot">•</span> INSTALL <span class="dot">•</span> SERVICE
+    <div class="eyebrow">SUPPLY <i>/</i> INSTALL <i>/</i> SERVICE</div>
+    <div class="headline">Wired right. <em>Cooled right.</em></div>
+
+    <div class="grid">
+      <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="8.5" rx="2"/><path d="M6 10h12"/><path class="acc" d="M7.5 16.5c0 1.5-1 2-1 3.5M12 16.5c0 1.5-1 2-1 3.5M16.5 16.5c0 1.5-1 2-1 3.5"/></svg></div><span>Air Con<br>Split &amp; Ducted</span></div>
+      <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><rect x="4.5" y="2.5" width="15" height="19" rx="2"/><path class="acc" d="M13 6.5 9.5 12.5h5L11 18"/></svg></div><span>Switchboards &amp;<br>Safety Switches</span></div>
+      <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.7 1 1.5 1 2.5h6c0-1 .2-1.8 1-2.5A6 6 0 0 0 12 3z"/><path class="acc" d="M12 7v3"/></svg></div><span>Downlights &amp;<br>Pendants</span></div>
+      <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6"/><g id="blade"><path d="M12 10.4C11 7 12 3.5 14.5 3.5c2 0 2 3.5-1.2 7.2"/></g><use href="#blade" transform="rotate(120 12 12)"/><use href="#blade" transform="rotate(240 12 12)"/></svg></div><span>Ceiling &amp;<br>Exhaust Fans</span></div>
+      <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="2.3"/><circle cx="15.5" cy="9.5" r="2.3"/><path d="M3 14.5h18"/><path class="acc" d="M7 17.3h2M15 17.3h2"/></svg></div><span>Oven, Cooktop<br>&amp; Rangehood</span></div>
+      <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><path d="M12 2.8s6.5 7.2 6.5 11.7a6.5 6.5 0 0 1-13 0C5.5 10 12 2.8 12 2.8z"/><path class="acc" d="M9 15a3 3 0 0 0 3 3"/></svg></div><span>Hot Water<br>Systems</span></div>
+      <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.8 16a5 5 0 0 1 6.4 0"/><path class="acc" d="M12 19.6h.01"/></svg></div><span>Antenna, Phone<br>&amp; Internet</span></div>
+      <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="12" rx="1.5"/><path d="M8 20.5h8M12 16.5v4"/><circle class="acc" cx="12" cy="10.5" r="2.4"/></svg></div><span>Cameras &amp;<br>TV Mounting</span></div>
     </div>
-    <div class="sub">All electrical works for Residential &amp; Commercial</div>
-    <ul class="list">
-      <li><b>Air conditioning</b> – split &amp; ducted</li>
-      <li>Safety switches &amp; switchboards</li>
-      <li>Downlights &amp; pendant lights</li>
-      <li>Ceiling &amp; exhaust fans, IXL</li>
-      <li>Oven, cooktop &amp; rangehood</li>
-      <li>Antenna, phone &amp; internet</li>
-      <li>Hot water systems</li>
-      <li>Cameras &amp; TV mounting</li>
-    </ul>
+
     <div class="foot">
-      <span class="promise">All jobs guaranteed · Reliable · Reasonable</span>
-      <span class="cta">0403 116 368</span>
+      <div class="promise">Residential &amp; Commercial<br><b>Guaranteed · Reliable · Reasonable</b></div>
+      <div class="cta"><span class="free">FREE QUOTE</span><span class="num">0403 116 368</span></div>
     </div>
   </div>
 </section>
