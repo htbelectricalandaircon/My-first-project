@@ -32,7 +32,7 @@
   .creds{position:absolute;left:7mm;bottom:7.2mm;font-size:5pt;line-height:1.5;color:var(--muted);font-weight:500;letter-spacing:.03em}
   .creds b{color:var(--navy);font-weight:700}
 
-  .info{position:absolute;left:53.5mm;right:6.5mm;top:8.4mm;color:#fff}
+  .info{position:absolute;left:53.5mm;right:6.5mm;top:11mm;color:#fff}
   .name{font-weight:800;font-size:10pt;line-height:1.02;letter-spacing:.01em}
   .name span{display:block;font-size:7.4pt;color:#bfe3ff;font-weight:700;margin-top:.5mm}
   .role{display:flex;align-items:center;gap:1.4mm;margin-top:1.6mm;font-size:4.9pt;font-weight:700;letter-spacing:.16em;color:var(--sky);text-transform:uppercase}
@@ -56,8 +56,8 @@
   .eyebrow i{font-style:normal;color:var(--red)}
   .headline{margin-top:1mm;font-size:13.5pt;font-weight:900;line-height:1;letter-spacing:-.01em}
   .headline em{font-style:normal;color:var(--sky)}
-  .grid{margin-top:3.6mm;display:grid;grid-template-columns:repeat(4,1fr);row-gap:2.4mm;column-gap:1.5mm}
-  .svc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.9mm}
+  .grid{margin-top:3.4mm;display:flex;flex-wrap:wrap;justify-content:center;row-gap:2.2mm}
+  .svc{width:20%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.9mm}
   .svc .i{width:6.6mm;height:6.6mm;border-radius:1.6mm;background:rgba(255,255,255,.1);border:.25mm solid rgba(26,156,240,.55);display:grid;place-items:center}
   .svc svg{width:4mm;height:4mm;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .svc svg .acc{stroke:var(--gold)}
@@ -80,7 +80,7 @@
   <div class="creds">Licence <b>376869C</b><br>ABN <b>54 168 092 466</b></div>
 
   <div class="info">
-    <div class="name">TONY BUI<span>Huu Toai Bui</span></div>
+    <div class="name">TONY BUI</div>
     <div class="role">Electrical &amp; Air Con</div>
     <div class="contact">
       <div class="row phone"><span class="ic red"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>0403 116 368</div>
@@ -103,6 +103,7 @@
 
     <div class="grid">
       <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="8.5" rx="2"/><path d="M6 10h12"/><path class="acc" d="M7.5 16.5c0 1.5-1 2-1 3.5M12 16.5c0 1.5-1 2-1 3.5M16.5 16.5c0 1.5-1 2-1 3.5"/></svg></div><span>Air Con<br>Split &amp; Ducted</span></div>
+      <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><rect x="3.5" y="3" width="10" height="18" rx="1.8"/><path d="M2 21h13"/><path d="M13.5 9h2.3a2 2 0 0 1 2 2v5.2a1.6 1.6 0 0 0 3.2 0V8.5L19 6.5"/><path class="acc" d="M9.5 6.5 7 11h3l-2.5 4.5"/></svg></div><span>EV Charger<br>Installation</span></div>
       <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><rect x="4.5" y="2.5" width="15" height="19" rx="2"/><path class="acc" d="M13 6.5 9.5 12.5h5L11 18"/></svg></div><span>Switchboards &amp;<br>Safety Switches</span></div>
       <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.7 1 1.5 1 2.5h6c0-1 .2-1.8 1-2.5A6 6 0 0 0 12 3z"/><path class="acc" d="M12 7v3"/></svg></div><span>Downlights &amp;<br>Pendants</span></div>
       <div class="svc"><div class="i"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6"/><g id="blade"><path d="M12 10.4C11 7 12 3.5 14.5 3.5c2 0 2 3.5-1.2 7.2"/></g><use href="#blade" transform="rotate(120 12 12)"/><use href="#blade" transform="rotate(240 12 12)"/></svg></div><span>Ceiling &amp;<br>Exhaust Fans</span></div>
