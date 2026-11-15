@@ -1,4 +1,4 @@
-import html, os, sys
+import html, json, os, sys
 from urllib.parse import quote
 
 OUT = sys.argv[1]
@@ -64,6 +64,67 @@ SERVICE_OPTIONS = [
                           "Air conditioning service & maintenance", "Air conditioning repairs"]),
 ]
 
+NOINDEX = {"thanks.html"}
+
+def page_url(filename):
+    return SITE + "/" if filename == "index.html" else f"{SITE}/{filename}"
+
+def business_schema():
+    services = [name for _, _, _, items in [(None, None, None, i) for *_, i in SERVICES] for _, name, _, _ in items]
+    data = {
+        "@context": "https://schema.org",
+        "@type": ["Electrician", "HVACBusiness"],
+        "@id": SITE + "/#business",
+        "name": "HTB Electrical & Air Conditioning Pty Ltd",
+        "alternateName": "HTB Electrical",
+        "url": SITE + "/",
+        "logo": SITE + "/images/logo.png",
+        "image": [SITE + "/images/hero.jpg", SITE + "/images/welcome-tony.jpg"],
+        "telephone": "+61403116368",
+        "email": EMAIL,
+        "priceRange": "$$",
+        "founder": {"@type": "Person", "name": "Tony Bui"},
+        "address": {"@type": "PostalAddress", "addressLocality": "North Sydney",
+                    "addressRegion": "NSW", "postalCode": "2060", "addressCountry": "AU"},
+        "geo": {"@type": "GeoCoordinates", "latitude": -33.8390, "longitude": 151.2072},
+        "hasMap": GOOGLE_PROFILE.replace("&amp;", "&"),
+        "openingHoursSpecification": [{
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "00:00", "closes": "23:59"}],
+        "areaServed": [{"@type": "City", "name": "Sydney"}] +
+                      [{"@type": "Place", "name": f"{sub} NSW"} for _, subs in REGIONS for sub in subs],
+        "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Electrical and air conditioning services",
+                            "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": n}}
+                                                for n in dict.fromkeys(services)]},
+        "identifier": [{"@type": "PropertyValue", "name": "ABN", "value": "54 168 092 466"},
+                       {"@type": "PropertyValue", "name": "NSW Electrical Licence", "value": LICENCE}],
+    }
+    return json.dumps(data, ensure_ascii=False, indent=1).replace("</", "<\\/")
+
+def head_seo(filename, title, description):
+    url = page_url(filename)
+    out = []
+    if filename in NOINDEX:
+        out.append('  <meta name="robots" content="noindex">')
+    else:
+        out.append(f'  <link rel="canonical" href="{url}">')
+    out += [
+        '  <meta property="og:type" content="website">',
+        '  <meta property="og:site_name" content="HTB Electrical &amp; Air Conditioning">',
+        f'  <meta property="og:title" content="{title}">',
+        f'  <meta property="og:description" content="{html.escape(description)}">',
+        f'  <meta property="og:url" content="{url}">',
+        f'  <meta property="og:image" content="{SITE}/images/hero.jpg">',
+        '  <meta property="og:locale" content="en_AU">',
+        '  <meta name="twitter:card" content="summary_large_image">',
+        '  <meta name="geo.region" content="AU-NSW">',
+        '  <meta name="geo.placename" content="North Sydney">',
+    ]
+    if filename == "index.html":
+        out.append('  <script type="application/ld+json">\n' + business_schema() + '\n  </script>')
+    return "\n".join(out)
+
 def page(filename, title, description, body, active=None):
     links = "\n".join(
         f'        <li><a href="{href}"{" class=\"active\"" if href == active else ""}>{label}</a></li>'
@@ -75,6 +136,7 @@ def page(filename, title, description, body, active=None):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <meta name="description" content="{html.escape(description)}">
+{head_seo(filename, title, description)}
   <link rel="icon" type="image/png" href="images/icon.png">
   <link rel="apple-touch-icon" href="images/icon.png">
   <link rel="stylesheet" href="styles.css">
@@ -691,17 +753,31 @@ thanks = page_hero("Thank You!", "Your request has been sent.") + f"""
       </div>
     </section>"""
 
-D = "HTB Electrical & Air Conditioning Pty Ltd – family-owned North Sydney electricians and air conditioning technicians, available 24/7. Lic. " + LICENCE + "."
+D = ("Licensed North Sydney electrician & air conditioning installer, open 24/7. Switchboards, lighting, EV chargers, "
+     "split & ducted air con across Sydney. Lic. " + LICENCE + ". Call " + PHONE + ".")
 PAGES = [
-    ("index.html", "HTB Electrical &amp; Air Conditioning | North Sydney Electrician &amp; Air Con", D, home, "index.html"),
-    ("services.html", "Our Services | HTB Electrical &amp; Air Conditioning", "Electrical services, split system air conditioning installation, and air conditioning servicing and repairs across Sydney.", services, "services.html"),
-    ("about.html", "About Us | HTB Electrical &amp; Air Conditioning", "Family-owned electrical and air conditioning business located in North Sydney.", about, "about.html"),
-    ("locations.html", "Areas We Service | HTB Electrical &amp; Air Conditioning", "Electrician and air conditioning installation in North Sydney, Sydney CBD, Lower North Shore, Northern Beaches, Ryde, Inner West, Hills District and Eastern Suburbs.", locations, "locations.html"),
-    ("contact.html", "Contact Us | HTB Electrical &amp; Air Conditioning", "Call HTB Electrical & Air Conditioning 24/7 on " + PHONE + " or send us your enquiry.", contact, "contact.html"),
-    ("quote.html", "Get a Quote or Booking | HTB Electrical &amp; Air Conditioning", "Request a free quote or booking from HTB Electrical & Air Conditioning.", quote_page, None),
+    ("index.html", "Electrician &amp; Air Conditioning North Sydney | 24/7 | HTB Electrical", D, home, "index.html"),
+    ("services.html", "Electrical &amp; Air Con Services Sydney | HTB Electrical &amp; Air Conditioning",
+     "Electrical repairs, switchboard upgrades, lighting, EV chargers, split system & ducted air conditioning installation, servicing and repairs across Sydney. Free quotes.", services, "services.html"),
+    ("about.html", "About Tony Bui | Family-Owned North Sydney Electrician | HTB Electrical",
+     "Meet Tony Bui – licensed electrician and air conditioning technician running a family-owned business in North Sydney. Honest, fair pricing and tidy work.", about, "about.html"),
+    ("locations.html", "Electrician Lower North Shore, CBD, Northern Beaches &amp; More | HTB Electrical",
+     "Local electrician and air conditioning installer serving North Sydney, Mosman, Chatswood, Sydney CBD, Northern Beaches, Ryde, Inner West, Hills District and Eastern Suburbs.", locations, "locations.html"),
+    ("contact.html", "Contact a 24/7 Electrician North Sydney | HTB Electrical &amp; Air Conditioning",
+     "Call HTB Electrical & Air Conditioning 24/7 on " + PHONE + " or send us your enquiry. Licensed electrician based in North Sydney.", contact, "contact.html"),
+    ("quote.html", "Free Electrical &amp; Air Con Quote Sydney | HTB Electrical",
+     "Request a free quote or booking for electrical or air conditioning work in Sydney. Attach photos and we'll get back to you fast.", quote_page, None),
     ("thanks.html", "Thank You | HTB Electrical &amp; Air Conditioning", "Thank you for your enquiry.", thanks, None),
 ]
 for fn, title, desc, body, active in PAGES:
     with open(os.path.join(OUT, fn), "w") as f:
         f.write(page(fn, title, desc, body, active))
-print("built", len(PAGES), "pages")
+with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
+    f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+    for fn, *_ in PAGES:
+        if fn not in NOINDEX:
+            f.write(f"  <url><loc>{page_url(fn)}</loc></url>\n")
+    f.write("</urlset>\n")
+with open(os.path.join(OUT, "robots.txt"), "w") as f:
+    f.write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+print("built", len(PAGES), "pages + sitemap.xml + robots.txt")

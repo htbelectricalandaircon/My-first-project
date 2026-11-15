@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://htbelectrical.com.au/sitemap.xml
