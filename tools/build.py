@@ -293,7 +293,7 @@ REGIONS = [
     ("Sydney CBD", ["Sydney", "The Rocks", "Barangaroo", "Millers Point", "Dawes Point", "Haymarket"]),
     ("Lower North Shore", ["Chatswood", "Waverton", "Roseville", "Northbridge", "North Sydney", "Neutral Bay",
                            "Naremburn", "Milsons Point", "Middle Cove", "McMahons Point",
-                           "Cammeray", "Crows Nest", "Mosman"]),
+                           "Cammeray", "Crows Nest", "Mosman", "Kirribilli"]),
     ("Northern Beaches", ["North Manly", "North Balgowlah", "Queenscliff", "Freshwater", "Elanora Heights",
                           "Clontarf"]),
     ("Ryde District", ["North Ryde", "Melrose Park", "Marsfield", "Putney", "Tennyson Point", "Gladesville",
