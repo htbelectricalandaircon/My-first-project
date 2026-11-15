@@ -10,6 +10,32 @@ SITE = "https://htbelectrical.com.au"
 GOOGLE_PROFILE = "https://www.google.com/maps/search/?api=1&amp;query=HTB%20ELECTRICAL%20%26%20AIR%20CONDITIONING%20P%2FL"
 GOOGLE_REVIEW = "https://g.page/htbelectrical/review?rc"
 FORM_ACTION = "https://formsubmit.co/" + EMAIL
+from landing_content import SERVICE_PAGES, SUBURB_PAGES
+for _sp in SUBURB_PAGES:
+    _sp.setdefault("slug", _sp["name"].lower().replace(" ", "-"))
+    _sp["file"] = f"electrician-{_sp['slug']}.html"
+SVC_FILE = {sp["slug"]: sp["slug"] + ".html" for sp in SERVICE_PAGES}
+SVC_BY_SLUG = {sp["slug"]: sp for sp in SERVICE_PAGES}
+SUBURB_FILE = {sp["name"]: sp["file"] for sp in SUBURB_PAGES}
+# Which service page each item on services.html links to
+ITEM_PAGE = {
+    "Electrical Repairs & Fault Finding": "emergency-electrician-sydney",
+    "Switchboard Upgrades": "switchboard-upgrades",
+    "Ceiling Fan Installation": "ceiling-fan-installation",
+    "Downlight Installation": "lighting-installation",
+    "Pendant Light Installation": "lighting-installation",
+    "LED Strip Lighting": "lighting-installation",
+    "EV Charger Installation": "ev-charger-installation",
+    "Split System Installation": "split-system-air-conditioning-installation",
+    "Air Conditioner Replacement": "split-system-air-conditioning-installation",
+    "Ducted Air Conditioning Installation": "ducted-air-conditioning-installation",
+    "Servicing & Maintenance": "air-conditioning-service-repairs",
+    "Air Conditioning Repairs": "air-conditioning-service-repairs",
+}
+def suburb_chip(name):
+    f = SUBURB_FILE.get(name)
+    return f'<li class="link"><a href="{f}">{name}</a></li>' if f else f"<li>{name}</li>"
+
 TODO = lambda s: f'<span class="todo">{s}</span>'
 
 ICONS = """
@@ -125,7 +151,9 @@ def head_seo(filename, title, description):
         out.append('  <script type="application/ld+json">\n' + business_schema() + '\n  </script>')
     return "\n".join(out)
 
-def page(filename, title, description, body, active=None):
+def page(filename, title, description, body, active=None, extra_head=""):
+    foot_services = "\n".join(f'            <li><a href="{sp["slug"]}.html">{sp["name"]}</a></li>' for sp in SERVICE_PAGES)
+    foot_areas = "\n".join(f'            <li><a href="{sp["file"]}">Electrician {sp["name"]}</a></li>' for sp in SUBURB_PAGES)
     links = "\n".join(
         f'        <li><a href="{href}"{" class=\"active\"" if href == active else ""}>{label}</a></li>'
         for href, label in NAV)
@@ -136,7 +164,7 @@ def page(filename, title, description, body, active=None):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <meta name="description" content="{html.escape(description)}">
-{head_seo(filename, title, description)}
+{head_seo(filename, title, description)}{extra_head}
   <link rel="icon" type="image/png" href="images/icon.png">
   <link rel="apple-touch-icon" href="images/icon.png">
   <link rel="stylesheet" href="styles.css">
@@ -188,13 +216,17 @@ def page(filename, title, description, body, active=None):
           </ul>
         </div>
         <div>
-          <h3>Quick Links</h3>
+          <h3>Services</h3>
           <ul>
-            <li><a href="services.html">Our Services</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="locations.html">Areas We Service</a></li>
-            <li><a href="quote.html">Get a Quote or Booking</a></li>
-            <li><a href="{GOOGLE_REVIEW}" target="_blank" rel="noopener">Review us on Google</a></li>
+{foot_services}
+            <li><a href="services.html">All services</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Areas</h3>
+          <ul>
+{foot_areas}
+            <li><a href="locations.html">All areas we service</a></li>
           </ul>
         </div>
         <div>
@@ -204,6 +236,8 @@ def page(filename, title, description, body, active=None):
             <li><a class="line" href="mailto:{EMAIL}">{ico("mail")}{EMAIL}</a></li>
             <li class="line">{ico("clock")}Open 24 hours, 7 days</li>
             <li class="line">{ico("pin")}North Sydney NSW</li>
+            <li><a href="quote.html">Get a Quote or Booking</a></li>
+            <li><a href="{GOOGLE_REVIEW}" target="_blank" rel="noopener">Review us on Google</a></li>
           </ul>
         </div>
       </div>
@@ -538,6 +572,10 @@ home = f"""    <section class="hero">
         <ul class="chips" style="justify-content:center;margin-bottom:24px">
           {"".join(f"<li>{r}</li>" for r, _ in REGIONS)}
         </ul>
+        <p class="section-intro" style="margin-bottom:12px">Popular areas:</p>
+        <ul class="chips" style="justify-content:center;margin-bottom:24px">
+          {"".join(suburb_chip(sp["name"]) for sp in SUBURB_PAGES)}
+        </ul>
         <a href="locations.html" class="btn btn-navy-outline">See all suburbs</a>
       </div>
     </section>
@@ -551,7 +589,7 @@ for i, (sid, icon, title, intro, items) in enumerate(SERVICES):
             <div class="svc-item">
               <h3>{ico(ic)}{t}</h3>
               <p>{d}</p>
-              <a class="btn btn-red btn-sm" href="quote.html?service={quote(opt)}">Get a quote</a>
+              <div class="svc-links"><a class="btn btn-red btn-sm" href="quote.html?service={quote(opt)}">Get a quote</a>{f' <a class="more" href="{SVC_FILE[ITEM_PAGE[t]]}">Learn more →</a>' if t in ITEM_PAGE else ""}</div>
             </div>""" for ic, t, opt, d in items)
     svc_sections += f"""
     <section id="{sid}"{' class="bg-soft"' if i % 2 == 0 else ""}>
@@ -634,7 +672,7 @@ about = page_hero("About Us", "The best &amp; trusted in North Sydney.", photo="
 region_cards = "".join(f"""
           <div class="region">
             <h3>{ico("pin")}{name}</h3>
-            <ul class="chips">{"".join(f"<li>{s}</li>" for s in subs)}</ul>
+            <ul class="chips">{"".join(suburb_chip(s) for s in subs)}</ul>
           </div>""" for name, subs in REGIONS)
 locations = page_hero("Areas We Service", "Electrical and air conditioning services Sydney wide.", photo="page-locations.jpg") + f"""
 
@@ -740,6 +778,223 @@ quote_page = page_hero("Get a Quote or Booking", "Simply fill out the details be
       </div>
     </section>"""
 
+
+# ---------- Service & suburb landing pages ----------
+WORK_CAPTION = dict(WORK)
+
+def ld(data):
+    return '\n  <script type="application/ld+json">\n' + json.dumps(data, ensure_ascii=False, indent=1).replace("</", "<\\/") + "\n  </script>"
+
+def plain(t):
+    return html.unescape(t)
+
+def faq_ld(faqs):
+    return {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(a)}} for q, a in faqs]}
+
+def crumbs_ld(*trail):
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "name": plain(n), "item": page_url(f)} for i, (n, f) in enumerate(trail)]}
+
+def faq_html(faqs):
+    return "".join(f"""
+          <details class="faq"><summary>{q}</summary><p>{a}</p></details>""" for q, a in faqs)
+
+def hero_actions():
+    return f"""
+        <div class="hero-actions" style="margin-top:22px">
+          <a href="{TEL}" class="btn btn-red">{ico("phone")}Call {PHONE}</a>
+          <a href="#enquire" class="btn btn-outline">Get a Free Quote</a>
+        </div>"""
+
+def breadcrumb(*trail):
+    parts = [f'<a href="{f}">{n}</a>' for n, f in trail[:-1]] + [f'<span aria-current="page">{trail[-1][0]}</span>']
+    return f'\n        <nav class="crumbs" aria-label="Breadcrumb">{" › ".join(parts)}</nav>'
+
+def reviews_section(cls=""):
+    return f"""
+    <section{cls}>
+      <div class="container">
+        <div class="center">
+          <h2 class="section-title">What Our Clients Say</h2>
+          <div class="rating-badge">
+            <span class="rating-num">5.0</span>
+            <span class="stars">{stars}</span>
+            <span>from <strong>347 Google reviews</strong></span>
+          </div>
+        </div>
+        <div class="review-grid">{review_cards}
+        </div>
+        <div class="hero-actions" style="justify-content:center;margin-top:28px">
+          <a href="{GOOGLE_PROFILE}" class="btn btn-navy-outline" target="_blank" rel="noopener">{ico("star", "ico ico-fill")}Read all our Google reviews</a>
+        </div>
+      </div>
+    </section>"""
+
+def work_section(files, cls=""):
+    return f"""
+    <section{cls}>
+      <div class="container">
+        <div class="center">
+          <h2 class="section-title">Our Recent Work</h2>
+          <p class="section-intro">Real jobs completed by Tony for homes and businesses across Sydney.</p>
+        </div>
+        <div class="work-grid">{gallery([(f, WORK_CAPTION[f]) for f in files])}
+        </div>
+      </div>
+    </section>"""
+
+LANDING = []
+
+for sp in SERVICE_PAGES:
+    fn = SVC_FILE[sp["slug"]]
+    trail = [("Home", "index.html"), ("Services", "services.html"), (sp["name"], fn)]
+    safety = f'\n          <div class="note">{ico("shield")}<p>{sp["safety"]}</p></div>' if sp["safety"] else ""
+    related = "".join(f"""
+          <a class="rel-card" href="{SVC_FILE[r]}"><strong>{SVC_BY_SLUG[r]["name"]}</strong><span>Learn more →</span></a>""" for r in sp["related"])
+    body = page_hero(sp["h1"], sp["sub"], breadcrumb(*trail) + hero_actions(), sp["banner"]) + f"""
+
+    <section>
+      <div class="container landing-grid">
+        <div class="prose">
+          {"".join(f"<p>{para}</p>" for para in sp["intro"])}
+          <h2>{sp["list_title"]}</h2>
+          <ul class="tick-list">{"".join(f"<li>{ico('check')}{i}</li>" for i in sp["items"])}</ul>{safety}
+          <h2>Why choose HTB Electrical &amp; Air Conditioning?</h2>
+          <ul class="tick-list">
+            <li>{ico('check')}Licensed electrician <strong>and</strong> air conditioning technician – Lic. {LICENCE}</li>
+            <li>{ico('check')}Family-owned North Sydney business with more than 10 years' experience</li>
+            <li>{ico('check')}Open 24 hours, 7 days</li>
+            <li>{ico('check')}Clear, upfront pricing and honest advice</li>
+            <li>{ico('check')}We leave your home clean and tidy</li>
+          </ul>
+        </div>
+        <div id="enquire">
+          {short_form("e", "Get a Free Quote", "Send us your details and we'll be in touch.", "New quote request – website (" + plain(sp["name"]) + ")")}
+        </div>
+      </div>
+    </section>
+{work_section(sp["work"], ' class="bg-soft"')}
+{reviews_section()}
+
+    <section class="bg-soft">
+      <div class="container narrow">
+        <h2 class="section-title center">Frequently Asked Questions</h2>{faq_html(sp["faqs"])}
+      </div>
+    </section>
+
+    <section>
+      <div class="container center">
+        <h2 class="section-title">{sp["name"]} Across Sydney</h2>
+        <p class="section-intro">Based in North Sydney, we provide {sp["name"].lower()} Sydney wide, including:</p>
+        <ul class="chips" style="justify-content:center;margin-bottom:28px">{"".join(suburb_chip(x["name"]) for x in SUBURB_PAGES)}</ul>
+        <a href="locations.html" class="btn btn-navy-outline">See all areas we service</a>
+      </div>
+    </section>
+
+    <section class="bg-soft">
+      <div class="container">
+        <h2 class="section-title center">Related Services</h2>
+        <div class="rel-grid">{related}
+        </div>
+      </div>
+    </section>
+
+{CTA}"""
+    head = ld({"@context": "https://schema.org", "@type": "Service", "name": plain(sp["name"]),
+               "serviceType": plain(sp["name"]), "description": plain(sp["desc"]), "url": page_url(fn),
+               "provider": {"@id": SITE + "/#business"},
+               "areaServed": [{"@type": "City", "name": "Sydney"}] + [{"@type": "Place", "name": x["name"] + " NSW"} for x in SUBURB_PAGES]}) \
+         + ld(faq_ld(sp["faqs"])) + ld(crumbs_ld(*trail))
+    LANDING.append((fn, sp["title"], plain(sp["desc"]), body, None, head))
+
+SUBURB_SERVICES = [
+    ("emergency-electrician-sydney", "wrench", "Electrical repairs, fault finding and 24/7 emergency call-outs."),
+    ("switchboard-upgrades", "board", "New switchboards, circuit breakers and RCD safety switches."),
+    ("lighting-installation", "downlight", "LED downlights, pendants, strip lighting and feature lights."),
+    ("ceiling-fan-installation", "ceilingfan", "Ceiling fans with or without lights, indoors and outdoors."),
+    ("ev-charger-installation", "ev", "Home and apartment EV chargers, including Tesla wall connectors."),
+    ("split-system-air-conditioning-installation", "aircon", "Split systems supplied and installed, power circuit included."),
+    ("ducted-air-conditioning-installation", "duct", "Whole-home ducted air conditioning with zoning."),
+    ("air-conditioning-service-repairs", "snow", "Air con servicing, maintenance and repairs."),
+]
+REGION_OF = {s: r for r, subs in REGIONS for s in subs}
+REGION_OF.update({r: r for r, _ in REGIONS})
+
+for sp in SUBURB_PAGES:
+    n, fn = sp["name"], sp["file"]
+    region = REGION_OF.get(n, "Sydney")
+    trail = [("Home", "index.html"), ("Locations", "locations.html"), (f"Electrician {n}", fn)]
+    faqs = [
+        (f"Do you service {n}?", f"Yes. We're based in North Sydney and work in {n} and the surrounding {region} suburbs every week."),
+        (f"Are you available after hours in {n}?", f"Yes, we're open 24 hours, 7 days. Call {PHONE} any time and you'll speak to Tony directly."),
+        ("Are you licensed and insured?", f"Yes. Tony is a qualified electrician and air conditioning technician, NSW Electrical Licence No. {LICENCE}, and the business is fully insured."),
+        ("Do you give free quotes?", "Yes. Send us your details and a photo of the job using the form on this page, or give us a call, and we'll give you a free quote."),
+    ]
+    cards = "".join(f"""
+            <div class="svc-item">
+              <h3>{ico(ic)}{SVC_BY_SLUG[slug]["name"]}</h3>
+              <p>{d}</p>
+              <a class="more" href="{SVC_FILE[slug]}">{SVC_BY_SLUG[slug]["name"]} in {n} →</a>
+            </div>""" for slug, ic, d in SUBURB_SERVICES)
+    body = page_hero(f"Electrician &amp; Air Conditioning in {n}",
+                     f"Licensed local electrician and air conditioning technician servicing {n} NSW {sp['postcode']} – open 24 hours, 7 days.",
+                     breadcrumb(*trail) + hero_actions(), "page-locations.jpg") + f"""
+
+    <section>
+      <div class="container landing-grid">
+        <div class="prose">
+          <h2>Your local electrician in {n}</h2>
+          <p>{sp["local"]}</p>
+          <p>{sp["homes"]}</p>
+          <p>Tony Bui is both a licensed electrician (Lic. {LICENCE}) and an air conditioning technician, so one call covers your electrical work and your air conditioning – installation, servicing and repairs. We give clear, upfront prices, turn up when we say we will, and leave your home clean and tidy.</p>
+          <h2>Electrical &amp; air conditioning services in {n}</h2>
+          <ul class="tick-list">{"".join(f'<li>{ico("check")}<a href="{SVC_FILE[slug]}">{SVC_BY_SLUG[slug]["name"]}</a></li>' for slug, _, _ in SUBURB_SERVICES)}</ul>
+        </div>
+        <div id="enquire">
+          {short_form("e", f"Get a Free Quote in {n}", "Send us your details and we'll be in touch.", f"New quote request – website ({n})")}
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-soft">
+      <div class="container">
+        <div class="center">
+          <h2 class="section-title">What We Do in {n}</h2>
+          <p class="section-intro">Homes, apartments and businesses in {n} – small repairs to full installations.</p>
+        </div>
+        <div class="svc-grid">{cards}
+        </div>
+      </div>
+    </section>
+{work_section(["work-split-system.jpg", "work-switchboard.jpg", "work-ev-charger.jpg", "work-downlights.jpg"])}
+{reviews_section(' class="bg-soft"')}
+
+    <section>
+      <div class="container narrow">
+        <h2 class="section-title center">Frequently Asked Questions</h2>{faq_html(faqs)}
+      </div>
+    </section>
+
+    <section class="bg-soft">
+      <div class="container center">
+        <h2 class="section-title">Nearby Areas We Service</h2>
+        <p class="section-intro">As well as {n}, we work throughout {region} and Sydney wide, including:</p>
+        <ul class="chips" style="justify-content:center;margin-bottom:28px">{"".join(suburb_chip(x) for x in sp["nearby"])}</ul>
+        <a href="locations.html" class="btn btn-navy-outline">See all areas we service</a>
+      </div>
+    </section>
+
+{CTA}"""
+    title = f"Electrician {n} | Air Conditioning {n} {sp['postcode']} | HTB Electrical"
+    desc = f"Licensed {n} electrician & air con installer, open 24/7. Switchboards, lighting, EV chargers, split & ducted air con. Call {PHONE}."
+    head = ld({"@context": "https://schema.org", "@type": "Service",
+               "name": f"Electrician and air conditioning in {n}", "serviceType": "Electrician", "url": page_url(fn),
+               "provider": {"@id": SITE + "/#business"},
+               "areaServed": {"@type": "Place", "name": f"{n} NSW {sp['postcode']}"}}) \
+         + ld(faq_ld(faqs)) + ld(crumbs_ld(*trail))
+    LANDING.append((fn, title, desc, body, None, head))
+
 # ---------- Thanks ----------
 thanks = page_hero("Thank You!", "Your request has been sent.") + f"""
 
@@ -768,10 +1023,10 @@ PAGES = [
     ("quote.html", "Free Electrical &amp; Air Con Quote Sydney | HTB Electrical",
      "Request a free quote or booking for electrical or air conditioning work in Sydney. Attach photos and we'll get back to you fast.", quote_page, None),
     ("thanks.html", "Thank You | HTB Electrical &amp; Air Conditioning", "Thank you for your enquiry.", thanks, None),
-]
-for fn, title, desc, body, active in PAGES:
+] + LANDING
+for fn, title, desc, body, active, *head in PAGES:
     with open(os.path.join(OUT, fn), "w") as f:
-        f.write(page(fn, title, desc, body, active))
+        f.write(page(fn, title, desc, body, active, *head))
 with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
     for fn, *_ in PAGES:

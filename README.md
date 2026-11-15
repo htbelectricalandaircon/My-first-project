@@ -12,4 +12,6 @@ repository root:
 python3 tools/build.py .
 ```
 
+Service and suburb page copy lives in `tools/landing_content.py`.
+
 Styles are in `styles.css`, shared scripts in `site.js`, and photos in `images/`.
