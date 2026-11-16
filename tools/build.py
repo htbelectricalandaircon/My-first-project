@@ -926,7 +926,7 @@ for sp in SUBURB_PAGES:
     region = REGION_OF.get(n, "Sydney")
     trail = [("Home", "index.html"), ("Locations", "locations.html"), (f"Electrician {n}", fn)]
     faqs = [
-        (f"Do you service {n}?", f"Yes. We're based in North Sydney and work in {n} and the surrounding {region} suburbs every week."),
+        (f"Do you service {n}?", f"Yes. We're based in North Sydney and work in {n} and across the {region} every week."),
         (f"Are you available after hours in {n}?", f"Yes, we're open 24 hours, 7 days. Call {PHONE} any time and you'll speak to Tony directly."),
         ("Are you licensed and insured?", f"Yes. Tony is a qualified electrician and air conditioning technician, NSW Electrical Licence No. {LICENCE}, and the business is fully insured."),
         ("Do you give free quotes?", "Yes. Send us your details and a photo of the job using the form on this page, or give us a call, and we'll give you a free quote."),
