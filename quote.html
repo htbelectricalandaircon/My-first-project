@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
@@ -78,10 +79,10 @@
 
   <header>
     <div class="container nav">
-      <a href="index.html" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
+      <a href="/" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
       <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg></button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="services.html">Services</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="locations.html">Locations</a></li>
@@ -91,7 +92,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="page-hero">
       <div class="container">
         <h1>Get a Quote or Booking</h1>
@@ -105,7 +106,7 @@
           <input type="hidden" name="_subject" value="New quote/booking request – website">
             <input type="hidden" name="_next" value="https://htbelectrical.com.au/thanks.html">
             <input type="hidden" name="_template" value="table">
-            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-label="Leave this field empty">
           <h2>Your Details</h2>
           <p class="hint">Fields marked optional can be left blank.</p>
           <div class="field">

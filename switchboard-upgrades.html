@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Switchboard Upgrades North Sydney &amp; Sydney | Safety Switches | HTB Electrical</title>
+  <title>Switchboard Upgrades North Sydney &amp; Sydney | HTB Electrical</title>
   <meta name="description" content="Replace old fuse boards with a modern switchboard, circuit breakers and RCD safety switches. Licensed North Sydney electrician. Free quotes – 0403 116 368.">
   <link rel="canonical" href="https://htbelectrical.com.au/switchboard-upgrades.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="HTB Electrical &amp; Air Conditioning">
-  <meta property="og:title" content="Switchboard Upgrades North Sydney &amp; Sydney | Safety Switches | HTB Electrical">
+  <meta property="og:title" content="Switchboard Upgrades North Sydney &amp; Sydney | HTB Electrical">
   <meta property="og:description" content="Replace old fuse boards with a modern switchboard, circuit breakers and RCD safety switches. Licensed North Sydney electrician. Free quotes – 0403 116 368.">
   <meta property="og:url" content="https://htbelectrical.com.au/switchboard-upgrades.html">
   <meta property="og:image" content="https://htbelectrical.com.au/images/hero.jpg">
@@ -25,7 +25,21 @@
  "description": "Replace old fuse boards with a modern switchboard, circuit breakers and RCD safety switches. Licensed North Sydney electrician. Free quotes – 0403 116 368.",
  "url": "https://htbelectrical.com.au/switchboard-upgrades.html",
  "provider": {
-  "@id": "https://htbelectrical.com.au/#business"
+  "@type": [
+   "Electrician",
+   "HVACBusiness"
+  ],
+  "@id": "https://htbelectrical.com.au/#business",
+  "name": "HTB Electrical & Air Conditioning Pty Ltd",
+  "url": "https://htbelectrical.com.au/",
+  "telephone": "+61403116368",
+  "address": {
+   "@type": "PostalAddress",
+   "addressLocality": "North Sydney",
+   "addressRegion": "NSW",
+   "postalCode": "2060",
+   "addressCountry": "AU"
+  }
  },
  "areaServed": [
   {
@@ -161,11 +175,13 @@
  ]
 }
   </script>
+  <link rel="preload" as="image" href="images/banner-electrical.jpg" fetchpriority="high">
   <link rel="icon" type="image/png" href="images/icon.png">
   <link rel="apple-touch-icon" href="images/icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
@@ -223,10 +239,10 @@
 
   <header>
     <div class="container nav">
-      <a href="index.html" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
+      <a href="/" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
       <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg></button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="services.html">Services</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="locations.html">Locations</a></li>
@@ -236,12 +252,12 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="page-hero has-photo" style="--photo:url(images/banner-electrical.jpg)">
       <div class="container">
         <h1>Switchboard Upgrades in Sydney</h1>
         <p>Replace your old fuse board with a modern switchboard, circuit breakers and safety switches that protect your family.</p>
-        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> › <a href="services.html">Services</a> › <span aria-current="page">Switchboard Upgrades</span></nav>
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="services.html">Services</a> › <span aria-current="page">Switchboard Upgrades</span></nav>
         <div class="hero-actions" style="margin-top:22px">
           <a href="tel:+61403116368" class="btn btn-red"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Call 0403 116 368</a>
           <a href="#enquire" class="btn btn-outline">Get a Free Quote</a>
@@ -269,7 +285,7 @@
             <input type="hidden" name="_subject" value="New quote request – website (Switchboard Upgrades)">
             <input type="hidden" name="_next" value="https://htbelectrical.com.au/thanks.html">
             <input type="hidden" name="_template" value="table">
-            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-label="Leave this field empty">
             <h2>Get a Free Quote</h2>
             <p class="hint">Send us your details and we'll be in touch.</p>
             <div class="field">
@@ -321,7 +337,7 @@
         </div>
         <div class="work-grid">
           <figure class="work">
-            <img src="images/work-switchboard.jpg" alt="Switchboard upgrade with RCD safety switches" loading="lazy" width="800" height="1067">
+            <img src="images/work-switchboard.jpg" alt="Switchboard upgrade with RCD safety switches" loading="lazy" width="800" height="897">
             <figcaption>Switchboard upgrade with RCD safety switches</figcaption>
           </figure>
           <figure class="work">
@@ -347,7 +363,7 @@
           <div class="rating-badge">
             <span class="rating-num">5.0</span>
             <span class="stars"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg></span>
-            <span>from <strong>347 Google reviews</strong></span>
+            <span>from <strong>349 Google reviews</strong></span>
           </div>
         </div>
         <div class="review-grid">
@@ -371,7 +387,7 @@
           </div>
         </div>
         <div class="hero-actions" style="justify-content:center;margin-top:28px">
-          <a href="https://www.google.com/maps/search/?api=1&amp;query=HTB%20ELECTRICAL%20%26%20AIR%20CONDITIONING%20P%2FL" class="btn btn-navy-outline" target="_blank" rel="noopener"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg>Read all our Google reviews</a>
+          <a href="https://www.google.com/maps?cid=14435020169673931568" class="btn btn-navy-outline" target="_blank" rel="noopener"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg>Read all our Google reviews</a>
         </div>
       </div>
     </section>

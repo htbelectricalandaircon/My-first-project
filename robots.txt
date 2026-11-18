@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /tools/
+Disallow: /docs/
+Disallow: /README.md
 
 Sitemap: https://htbelectrical.com.au/sitemap.xml

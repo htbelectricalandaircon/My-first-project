@@ -40,7 +40,7 @@ SERVICE_PAGES = [
     dict(
         slug="switchboard-upgrades",
         name="Switchboard Upgrades",
-        title="Switchboard Upgrades North Sydney &amp; Sydney | Safety Switches | HTB Electrical",
+        title="Switchboard Upgrades North Sydney &amp; Sydney | HTB Electrical",
         desc="Replace old fuse boards with a modern switchboard, circuit breakers and RCD safety switches. Licensed North Sydney electrician. Free quotes – 0403 116 368.",
         h1="Switchboard Upgrades in Sydney",
         sub="Replace your old fuse board with a modern switchboard, circuit breakers and safety switches that protect your family.",
@@ -72,7 +72,7 @@ SERVICE_PAGES = [
     dict(
         slug="ev-charger-installation",
         name="EV Charger Installation",
-        title="EV Charger Installation Sydney | Tesla &amp; All Brands | HTB Electrical",
+        title="EV Charger Installation Sydney | HTB Electrical",
         desc="Home and business EV charger installation in Sydney, including Tesla wall connectors. Licensed electrician handles the wiring and any switchboard work. Free quotes.",
         h1="EV Charger Installation in Sydney",
         sub="Charge your electric vehicle at home, faster and more safely than a standard power point.",
@@ -104,7 +104,7 @@ SERVICE_PAGES = [
     dict(
         slug="lighting-installation",
         name="Lighting Installation",
-        title="Downlight, Pendant &amp; LED Strip Lighting Installation Sydney | HTB Electrical",
+        title="Downlight &amp; LED Lighting Installation Sydney | HTB Electrical",
         desc="LED downlights, pendant lights, LED strip lighting, feature lights and backlit mirrors installed by a licensed North Sydney electrician. Free quotes.",
         h1="Lighting Installation in Sydney",
         sub="LED downlights, pendants, strip lighting and feature lights – installed neatly by a licensed electrician.",
@@ -168,7 +168,7 @@ SERVICE_PAGES = [
     dict(
         slug="split-system-air-conditioning-installation",
         name="Split System Air Conditioning Installation",
-        title="Split System Air Conditioning Installation Sydney &amp; North Sydney | HTB",
+        title="Split System Air Con Installation Sydney | HTB Electrical",
         desc="Split system air con supply and installation in Sydney by a licensed electrician and air conditioning technician – power circuit included. Free quotes.",
         h1="Split System Air Conditioning Installation in Sydney",
         sub="Supply and installation of split systems for bedrooms, living areas and offices – including the power circuit.",
@@ -201,7 +201,7 @@ SERVICE_PAGES = [
     dict(
         slug="ducted-air-conditioning-installation",
         name="Ducted Air Conditioning Installation",
-        title="Ducted Air Conditioning Installation Sydney | Supply &amp; Install | HTB",
+        title="Ducted Air Conditioning Installation Sydney | HTB Electrical",
         desc="Ducted air conditioning supply and installation for whole-home comfort across Sydney, with zoning and discreet vents. Licensed electrician and air con technician.",
         h1="Ducted Air Conditioning Installation in Sydney",
         sub="Whole-home heating and cooling with discreet vents in every room and one controller for the house.",
@@ -232,7 +232,7 @@ SERVICE_PAGES = [
     dict(
         slug="air-conditioning-service-repairs",
         name="Air Conditioning Service &amp; Repairs",
-        title="Air Conditioning Service &amp; Repairs Sydney &amp; North Sydney | HTB",
+        title="Air Conditioning Service &amp; Repairs Sydney | HTB Electrical",
         desc="Air con not cooling, leaking or showing an error code? Split system and ducted air conditioning servicing and repairs across Sydney. Open 24/7 – 0403 116 368.",
         h1="Air Conditioning Service &amp; Repairs in Sydney",
         sub="Keep your air conditioner running efficiently, and get it fixed fast when it stops working.",

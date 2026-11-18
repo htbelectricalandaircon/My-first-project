@@ -1,4 +1,5 @@
-import html, json, os, sys
+import html, json, os, re, struct, sys
+from datetime import date
 from urllib.parse import quote
 
 OUT = sys.argv[1]
@@ -7,7 +8,13 @@ TEL = "tel:+61403116368"
 EMAIL = "info@htbelectrical.com.au"
 LICENCE = "376869C"
 SITE = "https://htbelectrical.com.au"
-GOOGLE_PROFILE = "https://www.google.com/maps/search/?api=1&amp;query=HTB%20ELECTRICAL%20%26%20AIR%20CONDITIONING%20P%2FL"
+GOOGLE_PROFILE = "https://www.google.com/maps?cid=14435020169673931568"
+# Google rating shown on the site. Check against the Google Business Profile before changing.
+REVIEW_COUNT = 349
+# Leave blank until the real Google Tag Manager container exists. Nothing is output while blank.
+GTM_ID = ""
+# Add the verified Facebook page URL here to include it in the business schema.
+FACEBOOK_URL = ""
 GOOGLE_REVIEW = "https://g.page/htbelectrical/review?rc"
 FORM_ACTION = "https://formsubmit.co/" + EMAIL
 from landing_content import SERVICE_PAGES, SUBURB_PAGES
@@ -90,7 +97,38 @@ SERVICE_OPTIONS = [
                           "Air conditioning service & maintenance", "Air conditioning repairs"]),
 ]
 
-NOINDEX = {"thanks.html"}
+NOINDEX = {"thanks.html", "404.html"}
+
+def img_size(name):
+    """Real pixel size of a JPEG or PNG in images/, so width/height attributes always match the file."""
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "images", name), "rb") as f:
+        d = f.read()
+    if d[:8] == b"\x89PNG\r\n\x1a\n":
+        return struct.unpack(">II", d[16:24])
+    i = 2
+    while i < len(d) - 9:
+        if d[i] != 0xFF or d[i + 1] == 0xFF:
+            i += 1
+        elif d[i + 1] in (0xC0, 0xC1, 0xC2):
+            h, w = struct.unpack(">HH", d[i + 5:i + 9])
+            return w, h
+        else:
+            i += 2 + struct.unpack(">H", d[i + 2:i + 4])[0]
+    raise ValueError("Could not read image size: " + name)
+
+def img_dims(name):
+    w, h = img_size(name)
+    return f'width="{w}" height="{h}"'
+
+BUSINESS_REF = {"@type": ["Electrician", "HVACBusiness"], "@id": SITE + "/#business",
+                "name": "HTB Electrical & Air Conditioning Pty Ltd", "url": SITE + "/", "telephone": "+61403116368",
+                "address": {"@type": "PostalAddress", "addressLocality": "North Sydney", "addressRegion": "NSW",
+                            "postalCode": "2060", "addressCountry": "AU"}}
+
+GTM_HEAD = "" if not GTM_ID else f"""
+  <script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}})(window,document,'script','dataLayer','{GTM_ID}');</script>"""
+GTM_BODY = "" if not GTM_ID else f"""
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GTM_ID}" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>"""
 
 def page_url(filename):
     return SITE + "/" if filename == "index.html" else f"{SITE}/{filename}"
@@ -98,7 +136,6 @@ def page_url(filename):
 def business_schema():
     services = [name for _, _, _, items in [(None, None, None, i) for *_, i in SERVICES] for _, name, _, _ in items]
     data = {
-        "@context": "https://schema.org",
         "@type": ["Electrician", "HVACBusiness"],
         "@id": SITE + "/#business",
         "name": "HTB Electrical & Air Conditioning Pty Ltd",
@@ -113,7 +150,8 @@ def business_schema():
         "address": {"@type": "PostalAddress", "addressLocality": "North Sydney",
                     "addressRegion": "NSW", "postalCode": "2060", "addressCountry": "AU"},
         "geo": {"@type": "GeoCoordinates", "latitude": -33.8390, "longitude": 151.2072},
-        "hasMap": GOOGLE_PROFILE.replace("&amp;", "&"),
+        "hasMap": GOOGLE_PROFILE,
+        "sameAs": [u for u in (GOOGLE_PROFILE, FACEBOOK_URL) if u],
         "openingHoursSpecification": [{
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -126,7 +164,10 @@ def business_schema():
         "identifier": [{"@type": "PropertyValue", "name": "ABN", "value": "54 168 092 466"},
                        {"@type": "PropertyValue", "name": "NSW Electrical Licence", "value": LICENCE}],
     }
-    return json.dumps(data, ensure_ascii=False, indent=1).replace("</", "<\\/")
+    website = {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/",
+               "name": "HTB Electrical & Air Conditioning", "publisher": {"@id": SITE + "/#business"}}
+    graph = {"@context": "https://schema.org", "@graph": [data, website]}
+    return json.dumps(graph, ensure_ascii=False, indent=1).replace("</", "<\\/")
 
 def head_seo(filename, title, description):
     url = page_url(filename)
@@ -155,8 +196,11 @@ def page(filename, title, description, body, active=None, extra_head=""):
     foot_services = "\n".join(f'            <li><a href="{sp["slug"]}.html">{sp["name"]}</a></li>' for sp in SERVICE_PAGES)
     foot_areas = "\n".join(f'            <li><a href="{sp["file"]}">Electrician {sp["name"]}</a></li>' for sp in SUBURB_PAGES)
     links = "\n".join(
-        f'        <li><a href="{href}"{" class=\"active\"" if href == active else ""}>{label}</a></li>'
+        f'        <li><a href="{"/" if href == "index.html" else href}"{" class=\"active\"" if href == active else ""}>{label}</a></li>'
         for href, label in NAV)
+    photo = re.search(r"--photo:url\(images/([^)]+)\)", body)
+    hero = "hero.jpg" if filename == "index.html" else (photo[1] if photo else None)
+    preload = f'\n  <link rel="preload" as="image" href="images/{hero}" fetchpriority="high">' if hero else ""
     return f"""<!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -164,12 +208,13 @@ def page(filename, title, description, body, active=None, extra_head=""):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <meta name="description" content="{html.escape(description)}">
-{head_seo(filename, title, description)}{extra_head}
+{head_seo(filename, title, description)}{extra_head}{GTM_HEAD}{preload}
   <link rel="icon" type="image/png" href="images/icon.png">
   <link rel="apple-touch-icon" href="images/icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body>{GTM_BODY}
+  <a class="skip-link" href="#main">Skip to main content</a>
 {ICONS}
 
   <div class="topbar">
@@ -191,7 +236,7 @@ def page(filename, title, description, body, active=None, extra_head=""):
 
   <header>
     <div class="container nav">
-      <a href="index.html" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
+      <a href="/" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
       <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">{ico("menu")}</button>
       <ul class="nav-links" id="nav-links">
 {links}
@@ -200,7 +245,7 @@ def page(filename, title, description, body, active=None, extra_head=""):
     </div>
   </header>
 
-  <main>
+  <main id="main">
 {body}
   </main>
 
@@ -266,7 +311,7 @@ def hidden_fields(subject):
     return f"""<input type="hidden" name="_subject" value="{subject}">
             <input type="hidden" name="_next" value="{SITE}/thanks.html">
             <input type="hidden" name="_template" value="table">
-            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">"""
+            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-label="Leave this field empty">"""
 
 def short_form(p, heading, hint, subject, card_cls="form-card"):
     return f"""<form class="{card_cls}" action="{FORM_ACTION}" method="POST" enctype="multipart/form-data">
@@ -433,19 +478,19 @@ WORK = [
 def gallery(items):
     return "".join(f"""
           <figure class="work">
-            <img src="images/{f}" alt="{c}" loading="lazy" width="800" height="1067">
+            <img src="images/{f}" alt="{c}" loading="lazy" {img_dims(f)}>
             <figcaption>{c}</figcaption>
           </figure>""" for f, c in items)
 
 # ---------- Home ----------
 cat_cards = ""
 for sid, icon, title, intro, items in SERVICES:
-    ticks = "".join(f"<li>{ico('check')}{t}</li>" for _, t, _, _ in items[:5])
+    ticks = "".join(f"<li>{ico('check')}" + (f'<a href="{SVC_FILE[ITEM_PAGE[t]]}">{t}</a>' if t in ITEM_PAGE else t) + "</li>" for _, t, _, _ in items[:5])
     if len(items) > 5:
         ticks += f"<li>{ico('check')}…and more</li>"
     cat_cards += f"""
           <div class="cat-card">
-            <img class="cat-img" src="images/svc-{sid}.jpg" alt="{title}" loading="lazy" width="900" height="600">
+            <img class="cat-img" src="images/svc-{sid}.jpg" alt="{title}" loading="lazy" {img_dims(f"svc-{sid}.jpg")}>
             <div class="icon-wrap">{ico(icon)}</div>
             <h3>{title}</h3>
             <p>{intro}</p>
@@ -481,7 +526,7 @@ home = f"""    <section class="hero">
           <p class="lead">Family-owned electricians and air conditioning technicians, servicing homes and businesses across Sydney.</p>
           <ul class="usp-list">
             <li><span class="usp-ico">{ico("bolt")}</span>Fast, local &amp; reliable</li>
-            <li><span class="usp-ico stars">{ico("star", "ico ico-fill")}</span><a href="{GOOGLE_PROFILE}" target="_blank" rel="noopener" class="usp-link">5.0-star Google rating – 347 reviews</a></li>
+            <li><span class="usp-ico stars">{ico("star", "ico ico-fill")}</span><a href="{GOOGLE_PROFILE}" target="_blank" rel="noopener" class="usp-link">5.0-star Google rating – {REVIEW_COUNT} reviews</a></li>
             <li><span class="usp-ico">{ico("shield")}</span>Fully licensed &amp; insured</li>
           </ul>
           <div class="hero-actions">
@@ -553,7 +598,7 @@ home = f"""    <section class="hero">
           <div class="rating-badge">
             <span class="rating-num">5.0</span>
             <span class="stars">{stars}</span>
-            <span>from <strong>347 Google reviews</strong></span>
+            <span>from <strong>{REVIEW_COUNT} Google reviews</strong></span>
           </div>
         </div>
         <div class="review-grid">{review_cards}
@@ -599,7 +644,7 @@ for i, (sid, icon, title, intro, items) in enumerate(SERVICES):
           <h2 class="section-title">{title}</h2>
         </div>
         <p class="section-intro">{intro}</p>
-        <img class="svc-banner" src="images/banner-{sid}.jpg" alt="{title}" loading="lazy" width="1400" height="500">
+        <img class="svc-banner" src="images/banner-{sid}.jpg" alt="{title}" loading="lazy" {img_dims(f"banner-{sid}.jpg")}>
         <div class="svc-grid">{cards}
         </div>
       </div>
@@ -632,7 +677,7 @@ about = page_hero("About Us", "The best &amp; trusted in North Sydney.", photo="
           <p class="tagline">The best &amp; trusted in North Sydney.</p>
           <p>HTB Electrical &amp; Air Conditioning is a family-owned electrical and air conditioning business located in North Sydney. We provide installation, servicing, maintenance and repairs for homes and businesses.</p>
           <p>Because we are both qualified electricians and air conditioning technicians, we can look after the whole job – from the power supply to the finished installation – with one call.</p>
-          <p>We provide electrical services and air conditioning installation Sydney wide, including the Sydney CBD, Lower North Shore, Northern Beaches, Ryde District, Inner West, Hills District and Eastern Suburbs.</p>
+          <p>We provide <a href="services.html">electrical services and air conditioning installation</a> <a href="locations.html">Sydney wide</a>, including the Sydney CBD, Lower North Shore, Northern Beaches, Ryde District, Inner West, Hills District and Eastern Suburbs.</p>
           <div class="hero-actions" style="margin-top:24px">
             <a href="quote.html" class="btn btn-red">Get a Free Quote</a>
             <a href="{TEL}" class="btn btn-navy-outline">{ico("phone")}Call {PHONE}</a>
@@ -671,14 +716,14 @@ about = page_hero("About Us", "The best &amp; trusted in North Sydney.", photo="
 # ---------- Locations ----------
 region_cards = "".join(f"""
           <div class="region">
-            <h3>{ico("pin")}{name}</h3>
+            <h2>{ico("pin")}{name}</h2>
             <ul class="chips">{"".join(suburb_chip(s) for s in subs)}</ul>
           </div>""" for name, subs in REGIONS)
 locations = page_hero("Areas We Service", "Electrical and air conditioning services Sydney wide.", photo="page-locations.jpg") + f"""
 
     <section>
       <div class="container">
-        <p class="loc-intro">Our office is located in <strong>North Sydney</strong>, but HTB Electrical &amp; Air Conditioning provides electrical services and air conditioning installation <strong>Sydney wide</strong>, including the Sydney CBD, Lower North Shore, Northern Beaches, Ryde District, Inner West, Hills District and Eastern Suburbs of Sydney.</p>
+        <p class="loc-intro">Our office is located in <strong><a href="electrician-north-sydney.html">North Sydney</a></strong>, but HTB Electrical &amp; Air Conditioning provides electrical services and air conditioning installation <strong>Sydney wide</strong>, including the Sydney CBD, Lower North Shore, Northern Beaches, Ryde District, Inner West, Hills District and Eastern Suburbs of Sydney.</p>
       </div>
     </section>
 
@@ -808,7 +853,7 @@ def hero_actions():
         </div>"""
 
 def breadcrumb(*trail):
-    parts = [f'<a href="{f}">{n}</a>' for n, f in trail[:-1]] + [f'<span aria-current="page">{trail[-1][0]}</span>']
+    parts = [f'<a href="{"/" if f == "index.html" else f}">{n}</a>' for n, f in trail[:-1]] + [f'<span aria-current="page">{trail[-1][0]}</span>']
     return f'\n        <nav class="crumbs" aria-label="Breadcrumb">{" › ".join(parts)}</nav>'
 
 def reviews_section(cls=""):
@@ -820,7 +865,7 @@ def reviews_section(cls=""):
           <div class="rating-badge">
             <span class="rating-num">5.0</span>
             <span class="stars">{stars}</span>
-            <span>from <strong>347 Google reviews</strong></span>
+            <span>from <strong>{REVIEW_COUNT} Google reviews</strong></span>
           </div>
         </div>
         <div class="review-grid">{review_cards}
@@ -903,7 +948,7 @@ for sp in SERVICE_PAGES:
 {CTA}"""
     head = ld({"@context": "https://schema.org", "@type": "Service", "name": plain(sp["name"]),
                "serviceType": plain(sp["name"]), "description": plain(sp["desc"]), "url": page_url(fn),
-               "provider": {"@id": SITE + "/#business"},
+               "provider": BUSINESS_REF,
                "areaServed": [{"@type": "City", "name": "Sydney"}] + [{"@type": "Place", "name": x["name"] + " NSW"} for x in SUBURB_PAGES]}) \
          + ld(faq_ld(sp["faqs"])) + ld(crumbs_ld(*trail))
     LANDING.append((fn, sp["title"], plain(sp["desc"]), body, None, head))
@@ -926,7 +971,9 @@ for sp in SUBURB_PAGES:
     region = REGION_OF.get(n, "Sydney")
     trail = [("Home", "index.html"), ("Locations", "locations.html"), (f"Electrician {n}", fn)]
     faqs = [
-        (f"Do you service {n}?", f"Yes. We're based in North Sydney and work in {n} and across the {region} every week."),
+        (f"Do you service {n}?", "Yes. North Sydney is our home base." if n == "North Sydney" else
+         (f"Yes. We're based in North Sydney and service the {n}." if n == region else
+          f"Yes. We're based in North Sydney and service {n} and the wider {region}.")),
         (f"Are you available after hours in {n}?", f"Yes, we're open 24 hours, 7 days. Call {PHONE} any time and you'll speak to Tony directly."),
         ("Are you licensed and insured?", f"Yes. Tony is a qualified electrician and air conditioning technician, NSW Electrical Licence No. {LICENCE}, and the business is fully insured."),
         ("Do you give free quotes?", "Yes. Send us your details and a photo of the job using the form on this page, or give us a call, and we'll give you a free quote."),
@@ -979,18 +1026,18 @@ for sp in SUBURB_PAGES:
     <section class="bg-soft">
       <div class="container center">
         <h2 class="section-title">Nearby Areas We Service</h2>
-        <p class="section-intro">As well as {n}, we work throughout {region} and Sydney wide, including:</p>
+        <p class="section-intro">{f"As well as the {n}, we work Sydney wide, including:" if n == region else f"As well as {n}, we work throughout the {region} and Sydney wide, including:"}</p>
         <ul class="chips" style="justify-content:center;margin-bottom:28px">{"".join(suburb_chip(x) for x in sp["nearby"])}</ul>
         <a href="locations.html" class="btn btn-navy-outline">See all areas we service</a>
       </div>
     </section>
 
 {CTA}"""
-    title = f"Electrician {n} | Air Conditioning {n} {sp['postcode']} | HTB Electrical"
+    title = f"Electrician {n} {sp['postcode']} &amp; Air Con | HTB Electrical"
     desc = f"Licensed {n} electrician & air con installer, open 24/7. Switchboards, lighting, EV chargers, split & ducted air con. Call {PHONE}."
     head = ld({"@context": "https://schema.org", "@type": "Service",
                "name": f"Electrician and air conditioning in {n}", "serviceType": "Electrician", "url": page_url(fn),
-               "provider": {"@id": SITE + "/#business"},
+               "provider": BUSINESS_REF,
                "areaServed": {"@type": "Place", "name": f"{n} NSW {sp['postcode']}"}}) \
          + ld(faq_ld(faqs)) + ld(crumbs_ld(*trail))
     LANDING.append((fn, title, desc, body, None, head))
@@ -1003,36 +1050,65 @@ thanks = page_hero("Thank You!", "Your request has been sent.") + f"""
         <p class="big-text" style="margin-bottom:24px">We've received your details and will be in contact with you as soon as we can.<br>For anything urgent, please call us now.</p>
         <div class="hero-actions" style="justify-content:center">
           <a href="{TEL}" class="btn btn-red">{ico("phone")}Call {PHONE}</a>
-          <a href="index.html" class="btn btn-navy-outline">Back to Home</a>
+          <a href="/" class="btn btn-navy-outline">Back to Home</a>
         </div>
       </div>
     </section>"""
 
-D = ("Licensed North Sydney electrician & air conditioning installer, open 24/7. Switchboards, lighting, EV chargers, "
-     "split & ducted air con across Sydney. Lic. " + LICENCE + ". Call " + PHONE + ".")
+D = ("Licensed North Sydney electrician & air con installer, open 24/7. Switchboards, lighting, EV chargers, "
+     "split & ducted systems. Call " + PHONE + ".")
+
+# ---------- 404 ----------
+not_found = page_hero("Page Not Found", "Sorry, we couldn't find that page. It may have moved.") + f"""
+
+    <section>
+      <div class="container center">
+        <p class="big-text" style="margin-bottom:24px">Need an electrician or air conditioning technician? Call us or choose an option below.</p>
+        <div class="hero-actions" style="justify-content:center;margin-bottom:24px">
+          <a href="{TEL}" class="btn btn-red">{ico("phone")}Call {PHONE}</a>
+          <a href="quote.html" class="btn btn-navy-outline">Get a Free Quote</a>
+        </div>
+        <ul class="chips" style="justify-content:center">
+          <li class="link"><a href="/">Home</a></li>
+          <li class="link"><a href="services.html">Services</a></li>
+          <li class="link"><a href="locations.html">Areas we service</a></li>
+          <li class="link"><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </section>"""
 PAGES = [
-    ("index.html", "Electrician &amp; Air Conditioning North Sydney | 24/7 | HTB Electrical", D, home, "index.html"),
-    ("services.html", "Electrical &amp; Air Con Services Sydney | HTB Electrical &amp; Air Conditioning",
-     "Electrical repairs, switchboard upgrades, lighting, EV chargers, split system & ducted air conditioning installation, servicing and repairs across Sydney. Free quotes.", services, "services.html"),
-    ("about.html", "About Tony Bui | Family-Owned North Sydney Electrician | HTB Electrical",
+    ("index.html", "Electrician &amp; Air Conditioning North Sydney | HTB Electrical", D, home, "index.html"),
+    ("services.html", "Electrical &amp; Air Con Services Sydney | HTB Electrical",
+     "Electrical repairs, switchboards, lighting and EV chargers, plus split system and ducted air conditioning installation, service and repairs across Sydney.", services, "services.html"),
+    ("about.html", "About Tony Bui | North Sydney Electrician | HTB Electrical",
      "Meet Tony Bui – licensed electrician and air conditioning technician running a family-owned business in North Sydney. Honest, fair pricing and tidy work.", about, "about.html"),
-    ("locations.html", "Electrician Lower North Shore, CBD, Northern Beaches &amp; More | HTB Electrical",
-     "Local electrician and air conditioning installer serving North Sydney, Mosman, Chatswood, Sydney CBD, Northern Beaches, Ryde, Inner West, Hills District and Eastern Suburbs.", locations, "locations.html"),
-    ("contact.html", "Contact a 24/7 Electrician North Sydney | HTB Electrical &amp; Air Conditioning",
+    ("locations.html", "Electrician Service Areas Across Sydney | HTB Electrical",
+     "Electrical and air conditioning services across North Sydney, the Lower North Shore, Sydney CBD, Northern Beaches, Inner West, Hills and Eastern Suburbs.", locations, "locations.html"),
+    ("contact.html", "Contact HTB Electrical | 24/7 Electrician North Sydney",
      "Call HTB Electrical & Air Conditioning 24/7 on " + PHONE + " or send us your enquiry. Licensed electrician based in North Sydney.", contact, "contact.html"),
     ("quote.html", "Free Electrical &amp; Air Con Quote Sydney | HTB Electrical",
      "Request a free quote or booking for electrical or air conditioning work in Sydney. Attach photos and we'll get back to you fast.", quote_page, None),
     ("thanks.html", "Thank You | HTB Electrical &amp; Air Conditioning", "Thank you for your enquiry.", thanks, None),
+    ("404.html", "Page Not Found | HTB Electrical &amp; Air Conditioning", "The page you were looking for could not be found.", not_found, None, '\n  <base href="/">'),
 ] + LANDING
+
+# A page keeps its previous <lastmod> unless its HTML actually changed in this build.
+_sitemap_path = os.path.join(OUT, "sitemap.xml")
+_old_sitemap = open(_sitemap_path, encoding="utf-8").read() if os.path.exists(_sitemap_path) else ""
+_old_lastmod = dict(re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", _old_sitemap))
+LASTMOD = {}
 for fn, title, desc, body, active, *head in PAGES:
-    with open(os.path.join(OUT, fn), "w") as f:
-        f.write(page(fn, title, desc, body, active, *head))
-with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
+    path, out = os.path.join(OUT, fn), page(fn, title, desc, body, active, *head)
+    previous = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+    LASTMOD[fn] = _old_lastmod.get(page_url(fn)) if previous == out and page_url(fn) in _old_lastmod else date.today().isoformat()
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(out)
+with open(_sitemap_path, "w", encoding="utf-8") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
     for fn, *_ in PAGES:
         if fn not in NOINDEX:
-            f.write(f"  <url><loc>{page_url(fn)}</loc></url>\n")
+            f.write(f"  <url><loc>{page_url(fn)}</loc><lastmod>{LASTMOD[fn]}</lastmod></url>\n")
     f.write("</urlset>\n")
 with open(os.path.join(OUT, "robots.txt"), "w") as f:
-    f.write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+    f.write(f"User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /docs/\nDisallow: /README.md\n\nSitemap: {SITE}/sitemap.xml\n")
 print("built", len(PAGES), "pages + sitemap.xml + robots.txt")
