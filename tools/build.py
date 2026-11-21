@@ -186,7 +186,7 @@ def business_schema():
                             "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": n}}
                                                 for n in dict.fromkeys(services)]},
         "identifier": [{"@type": "PropertyValue", "name": "ABN", "value": "54 168 092 466"},
-                       {"@type": "PropertyValue", "name": "NSW Electrical Licence", "value": LICENCE}],
+                       {"@type": "PropertyValue", "name": "NSW Contractor Licence (Electrician)", "value": LICENCE}],
     }
     website = {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/",
                "name": "HTB Electrical & Air Conditioning", "publisher": {"@id": SITE + "/#business"}}
@@ -281,7 +281,7 @@ def page(filename, title, description, body, active=None, extra_head=""):
           <p class="tag">North Sydney Electrical &amp; Air Conditioning Technicians</p>
           <ul style="margin-top:14px">
             <li>ABN: 54 168 092 466</li>
-            <li>Electrical Licence No: {LICENCE}</li>
+            <li>Electrical Contractor Licence No: {LICENCE}</li>
           </ul>
         </div>
         <div>
@@ -732,7 +732,7 @@ about = page_hero("About Us", "The best &amp; trusted in North Sydney.", photo="
           </div>
           <div class="value">
             <div class="icon-wrap">{ico("shield")}</div>
-            <div><h3>Licensed &amp; Insured</h3><p>Electrical Licence No. {LICENCE}.</p></div>
+            <div><h3>Licensed &amp; Insured</h3><p>NSW Electrical Contractor Licence No. {LICENCE}.</p></div>
           </div>
         </div>
       </div>
@@ -934,7 +934,7 @@ for sp in SERVICE_PAGES:
           <ul class="tick-list">{"".join(f"<li>{ico('check')}{i}</li>" for i in sp["items"])}</ul>{safety}
           <h2>Why choose HTB Electrical &amp; Air Conditioning?</h2>
           <ul class="tick-list">
-            <li>{ico('check')}Licensed electrician <strong>and</strong> air conditioning technician – Lic. {LICENCE}</li>
+            <li>{ico('check')}Licensed electrician <strong>and</strong> air conditioning technician – Contractor Lic. {LICENCE}</li>
             <li>{ico('check')}Family-owned North Sydney business with more than 10 years' experience</li>
             <li>{ico('check')}Open 7am–7pm, with 24-hour emergency call-outs</li>
             <li>{ico('check')}Clear, upfront pricing and honest advice</li>
@@ -1006,7 +1006,7 @@ for sp in SUBURB_PAGES:
          (f"Yes. We're based in North Sydney and service the {n}." if n == region else
           f"Yes. We're based in North Sydney and service {n} and the wider {region}.")),
         (f"Are you available after hours in {n}?", f"Our standard hours are 7am–7pm. Emergency electrical call-outs are available 24 hours – call {PHONE}."),
-        ("Are you licensed and insured?", f"Yes. Tony is a qualified electrician and air conditioning technician, NSW Electrical Licence No. {LICENCE}, and the business is fully insured."),
+        ("Are you licensed and insured?", f"Yes. HTB Electrical &amp; Air Conditioning holds NSW Electrical Contractor Licence No. {LICENCE}, Tony is a qualified electrician and air conditioning technician, and the business is fully insured."),
         ("Do you give free quotes?", "Yes. Send us your details and a photo of the job using the form on this page, or give us a call, and we'll give you a free quote."),
     ]
     cards = "".join(f"""
@@ -1025,7 +1025,7 @@ for sp in SUBURB_PAGES:
           <h2>Your local electrician in {n}</h2>
           <p>{sp["local"]}</p>
           <p>{sp["homes"]}</p>
-          <p>Tony Bui is both a licensed electrician (Lic. {LICENCE}) and an air conditioning technician, so one call covers your electrical work and your air conditioning – installation, servicing and repairs. We give clear, upfront prices, turn up when we say we will, and leave your home clean and tidy.</p>
+          <p>Tony Bui is both a licensed electrician and an air conditioning technician (HTB contractor licence {LICENCE}), so one call covers your electrical work and your air conditioning – installation, servicing and repairs. We give clear, upfront prices, turn up when we say we will, and leave your home clean and tidy.</p>
           <h2>Electrical &amp; air conditioning services in {n}</h2>
           <ul class="tick-list">{"".join(f'<li>{ico("check")}<a href="{SVC_FILE[slug]}">{SVC_BY_SLUG[slug]["name"]}</a></li>' for slug, _, _ in SUBURB_SERVICES)}</ul>
         </div>
