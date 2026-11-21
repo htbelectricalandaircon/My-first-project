@@ -69,7 +69,8 @@ class Page(HTMLParser):
         if self._main > 0 and not self._skip: self.text.append(x)
 
 
-files = sorted(f for f in os.listdir(ROOT) if f.endswith(".html"))
+# Google Search Console verification files (googleXXXX.html) are not site pages.
+files = sorted(f for f in os.listdir(ROOT) if f.endswith(".html") and not re.fullmatch(r"google[0-9a-f]+\.html", f))
 pages = {}
 for f in files:
     p = Page(); p.feed(open(os.path.join(ROOT, f), encoding="utf-8").read()); pages[f] = p

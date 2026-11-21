@@ -7,6 +7,9 @@ PHONE = "0403 116 368"
 TEL = "tel:+61403116368"
 EMAIL = "info@htbelectrical.com.au"
 LICENCE = "376869C"
+# Confirmed by the clients: standard hours 7am-7pm, emergency call-outs 24 hours.
+# Days of the week are not yet confirmed, so no opening-hours schema is published.
+HOURS = "7am–7pm"
 SITE = "https://htbelectrical.com.au"
 GOOGLE_PROFILE = "https://www.google.com/maps?cid=14435020169673931568"
 # Google rating shown on the site. Check against the Google Business Profile before changing.
@@ -26,6 +29,12 @@ SVC_BY_SLUG = {sp["slug"]: sp for sp in SERVICE_PAGES}
 SUBURB_FILE = {sp["name"]: sp["file"] for sp in SUBURB_PAGES}
 # Which service page each item on services.html links to
 ITEM_PAGE = {
+    "Renovation Electrical Work": "renovation-electrician",
+    "Power Point Installation": "electrical-installations",
+    "Cooktop & Oven Installation": "electrical-installations",
+    "Smoke Alarm Installation": "electrical-installations",
+    "Exhaust Fans": "electrical-installations",
+    "Heated Towel Rail Installation": "renovation-electrician",
     "Electrical Repairs & Fault Finding": "emergency-electrician-sydney",
     "Switchboard Upgrades": "switchboard-upgrades",
     "Ceiling Fan Installation": "ceiling-fan-installation",
@@ -90,7 +99,7 @@ NAV = [("index.html", "Home"), ("services.html", "Services"), ("about.html", "Ab
        ("locations.html", "Locations"), ("contact.html", "Contact")]
 
 SERVICE_OPTIONS = [
-    ("Electrical", ["Electrical repairs & fault finding", "Switchboard upgrade", "Ceiling fan installation", "Downlight installation", "Pendant light installation", "Smoke alarm installation", "Cooktop & oven installation", "Smart doorbell installation", "Security camera installation",
+    ("Electrical", ["Electrical installation", "Renovation electrical work", "Electrical repairs & fault finding", "Switchboard upgrade", "Ceiling fan installation", "Downlight installation", "Pendant light installation", "Smoke alarm installation", "Cooktop & oven installation", "Smart doorbell installation", "Security camera installation",
                     "Power point installation", "LED strip lighting", "Exhaust fan installation", "Heated towel rail installation",
                     "EV charger installation", "Network cabling", "TV wall mounting", "TV antenna"]),
     ("Air conditioning", ["Split system air conditioning installation", "Ducted air conditioning installation", "Air conditioner replacement",
@@ -152,10 +161,6 @@ def business_schema():
         "geo": {"@type": "GeoCoordinates", "latitude": -33.8390, "longitude": 151.2072},
         "hasMap": GOOGLE_PROFILE,
         "sameAs": [u for u in (GOOGLE_PROFILE, FACEBOOK_URL) if u],
-        "openingHoursSpecification": [{
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-            "opens": "00:00", "closes": "23:59"}],
         "areaServed": [{"@type": "City", "name": "Sydney"}] +
                       [{"@type": "Place", "name": f"{sub} NSW"} for _, subs in REGIONS for sub in subs],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Electrical and air conditioning services",
@@ -221,12 +226,12 @@ def page(filename, title, description, body, active=None, extra_head=""):
     <div class="ticker">
       <div class="ticker-track">
         <div class="ticker-group">
-          <span>{ico("clock")}<strong>Open 24 hours, 7 days</strong></span>
+          <span>{ico("clock")}<strong>Open 7am–7pm · 24/7 emergency call-outs</strong></span>
           <a href="mailto:{EMAIL}">{ico("mail")}{EMAIL}</a>
           <a href="{TEL}">{ico("phone")}<strong>{PHONE}</strong></a>
         </div>
         <div class="ticker-group" aria-hidden="true">
-          <span>{ico("clock")}<strong>Open 24 hours, 7 days</strong></span>
+          <span>{ico("clock")}<strong>Open 7am–7pm · 24/7 emergency call-outs</strong></span>
           <a tabindex="-1" href="mailto:{EMAIL}">{ico("mail")}{EMAIL}</a>
           <a tabindex="-1" href="{TEL}">{ico("phone")}<strong>{PHONE}</strong></a>
         </div>
@@ -279,7 +284,7 @@ def page(filename, title, description, body, active=None, extra_head=""):
           <ul>
             <li><a class="line" href="{TEL}">{ico("phone")}{PHONE}</a></li>
             <li><a class="line" href="mailto:{EMAIL}">{ico("mail")}{EMAIL}</a></li>
-            <li class="line">{ico("clock")}Open 24 hours, 7 days</li>
+            <li class="line">{ico("clock")}Open 7am–7pm · 24/7 emergency call-outs</li>
             <li class="line">{ico("pin")}North Sydney NSW</li>
             <li><a href="quote.html">Get a Quote or Booking</a></li>
             <li><a href="{GOOGLE_REVIEW}" target="_blank" rel="noopener">Review us on Google</a></li>
@@ -365,7 +370,7 @@ def page_hero(title, sub, extra="", photo=None):
 CTA = f"""    <div class="cta">
       <div class="container">
         <h2>Need an electrician or air conditioning technician?</h2>
-        <p>We're available 24 hours a day, 7 days a week.</p>
+        <p>Open 7am–7pm, with emergency call-outs available 24 hours.</p>
         <div class="actions">
           <a href="{TEL}" class="btn btn-white">{ico("phone")}Call {PHONE}</a>
           <a href="quote.html" class="btn btn-outline">Get a Free Quote</a>
@@ -376,8 +381,14 @@ CTA = f"""    <div class="cta">
 # ---------- Services data ----------
 SERVICES = [
     ("electrical", "bolt", "Electrical Services",
-     "Safe, reliable electrical work for homes and businesses – from small repairs to new installations.",
-     [("wrench", "Electrical Repairs & Fault Finding", "Electrical repairs & fault finding",
+     "Safe, reliable electrical work for homes and businesses – from new installations and renovations to repairs.",
+     [("home", "Renovation Electrical Work", "Renovation electrical work",
+       "Planning, rough-in and fit-off for kitchen, bathroom and whole-home renovations, including new circuits and lighting."),
+      ("outlet", "Power Point Installation", "Power point installation",
+       "New and additional power points, USB outlets, outdoor power points and relocations."),
+      ("ev", "EV Charger Installation", "EV charger installation",
+       "Home and business electric vehicle charger installation, including any wiring or switchboard work needed."),
+      ("wrench", "Electrical Repairs & Fault Finding", "Electrical repairs & fault finding",
        "Power outages, tripping safety switches, faulty wiring, flickering lights – we find the fault and fix it safely."),
       ("board", "Switchboard Upgrades", "Switchboard upgrade",
        "Replace old fuse boards with modern switchboards, circuit breakers and safety switches to protect your family."),
@@ -395,16 +406,12 @@ SERVICES = [
        "Installation of smart video doorbells, so you can see and talk to visitors from your phone."),
       ("camera", "Security Camera Installation", "Security camera installation",
        "Installation of security cameras to help protect your home or business."),
-      ("outlet", "Power Point Installation", "Power point installation",
-       "New and additional power points, USB outlets, outdoor power points and relocations."),
       ("bulb", "LED Strip Lighting", "LED strip lighting",
        "Feature and under-cabinet LED strip lighting for kitchens, living areas, stairs and shops."),
       ("fan", "Exhaust Fans", "Exhaust fan installation",
        "Bathroom, kitchen and laundry exhaust fans – new installations and replacements."),
       ("towelrail", "Heated Towel Rail Installation", "Heated towel rail installation",
        "Supply and installation of heated towel rails, including the wiring and switch, for warm, dry towels every day."),
-      ("ev", "EV Charger Installation", "EV charger installation",
-       "Home and business electric vehicle charger installation, including any wiring or switchboard work needed."),
       ("network", "Network Cabling", "Network cabling",
        "Data points and network cabling for reliable internet in homes and offices."),
       ("tv", "TV Wall Mounting", "TV wall mounting",
@@ -521,7 +528,7 @@ review_cards = "".join(f"""
 home = f"""    <section class="hero">
       <div class="container hero-grid">
         <div>
-          <span class="eyebrow"><span class="dot"></span>OPEN 24 HOURS · 7 DAYS</span>
+          <span class="eyebrow"><span class="dot"></span>24/7 EMERGENCY CALL-OUTS</span>
           <h1>North Sydney Electrical &amp; Air Conditioning Specialists</h1>
           <p class="lead">Family-owned electricians and air conditioning technicians, servicing homes and businesses across Sydney.</p>
           <ul class="usp-list">
@@ -543,7 +550,8 @@ home = f"""    <section class="hero">
     <div class="strip">
       <div class="container strip-inner">
         <span class="strip-label">Proudly servicing Sydney with:</span>
-        <span class="strip-item">{ico("bolt")}Electrical Service &amp; Repairs</span>
+        <span class="strip-item">{ico("bolt")}Electrical Installations &amp; Renovations</span>
+        <span class="strip-item">{ico("ev")}EV Chargers</span>
         <span class="strip-item">{ico("aircon")}Split &amp; Ducted Air Conditioning Installation</span>
       </div>
     </div>
@@ -701,7 +709,7 @@ about = page_hero("About Us", "The best &amp; trusted in North Sydney.", photo="
           </div>
           <div class="value">
             <div class="icon-wrap">{ico("bolt")}</div>
-            <div><h3>Fast, Local &amp; Reliable</h3><p>Available 24 hours a day, 7 days a week.</p></div>
+            <div><h3>Fast, Local &amp; Reliable</h3><p>Open 7am–7pm, with 24-hour emergency call-outs.</p></div>
           </div>
           <div class="value">
             <div class="icon-wrap">{ico("shield")}</div>
@@ -743,11 +751,11 @@ contact = page_hero("Contact Us", "We're always happy to hear from you.", photo=
     <section>
       <div class="container contact-grid">
         <div>
-          <p class="big-text">Give us a call or send us your enquiry. <strong>We'll get back to you within 48 hours.</strong></p>
+          <p class="big-text">Give us a call or send us your enquiry. <strong>We'll get back to you within 48 hours. For an electrical emergency, call us any time.</strong></p>
           <div class="contact-lines">
             <a class="contact-line" href="{TEL}">
               <div class="icon-wrap">{ico("phone")}</div>
-              <div><div class="label">Phone – 24/7</div><div class="value">{PHONE}</div></div>
+              <div><div class="label">Phone</div><div class="value">{PHONE}</div></div>
             </a>
             <a class="contact-line" href="mailto:{EMAIL}">
               <div class="icon-wrap">{ico("mail")}</div>
@@ -755,7 +763,7 @@ contact = page_hero("Contact Us", "We're always happy to hear from you.", photo=
             </a>
             <div class="contact-line">
               <div class="icon-wrap">{ico("clock")}</div>
-              <div><div class="label">Open hours</div><div class="value">24 hours, 7 days</div></div>
+              <div><div class="label">Open hours</div><div class="value">7am–7pm · Emergency call-outs 24 hours</div></div>
             </div>
           </div>
           <a href="quote.html" class="btn btn-red">Request a quote or booking here</a>
@@ -818,7 +826,7 @@ quote_page = page_hero("Get a Quote or Booking", "Simply fill out the details be
           <p>We're always happy to hear from you.</p>
           <a class="line" href="{TEL}">{ico("phone")}<span><small>Call us on</small>{PHONE}</span></a>
           <a class="line" href="mailto:{EMAIL}">{ico("mail")}<span><small>Email</small>{EMAIL}</span></a>
-          <p class="line" style="display:flex;gap:12px;align-items:center;font-weight:700;margin:0">{ico("clock")}<span><small>Open hours</small>24 hours, 7 days</span></p>
+          <p class="line" style="display:flex;gap:12px;align-items:center;font-weight:700;margin:0">{ico("clock")}<span><small>Open hours</small>7am–7pm · Emergency call-outs 24 hours</span></p>
         </aside>
       </div>
     </section>"""
@@ -909,7 +917,7 @@ for sp in SERVICE_PAGES:
           <ul class="tick-list">
             <li>{ico('check')}Licensed electrician <strong>and</strong> air conditioning technician – Lic. {LICENCE}</li>
             <li>{ico('check')}Family-owned North Sydney business with more than 10 years' experience</li>
-            <li>{ico('check')}Open 24 hours, 7 days</li>
+            <li>{ico('check')}Open 7am–7pm, with 24-hour emergency call-outs</li>
             <li>{ico('check')}Clear, upfront pricing and honest advice</li>
             <li>{ico('check')}We leave your home clean and tidy</li>
           </ul>
@@ -954,7 +962,9 @@ for sp in SERVICE_PAGES:
     LANDING.append((fn, sp["title"], plain(sp["desc"]), body, None, head))
 
 SUBURB_SERVICES = [
-    ("emergency-electrician-sydney", "wrench", "Electrical repairs, fault finding and 24/7 emergency call-outs."),
+    ("electrical-installations", "outlet", "Power points, lighting, circuits and appliance connections."),
+    ("renovation-electrician", "home", "Electrical planning, rough-in and fit-off for renovations."),
+    ("emergency-electrician-sydney", "wrench", "Electrical repairs, fault finding and 24-hour emergency call-outs."),
     ("switchboard-upgrades", "board", "New switchboards, circuit breakers and RCD safety switches."),
     ("lighting-installation", "downlight", "LED downlights, pendants, strip lighting and feature lights."),
     ("ceiling-fan-installation", "ceilingfan", "Ceiling fans with or without lights, indoors and outdoors."),
@@ -974,7 +984,7 @@ for sp in SUBURB_PAGES:
         (f"Do you service {n}?", "Yes. North Sydney is our home base." if n == "North Sydney" else
          (f"Yes. We're based in North Sydney and service the {n}." if n == region else
           f"Yes. We're based in North Sydney and service {n} and the wider {region}.")),
-        (f"Are you available after hours in {n}?", f"Yes, we're open 24 hours, 7 days. Call {PHONE} any time and you'll speak to Tony directly."),
+        (f"Are you available after hours in {n}?", f"Our standard hours are 7am–7pm. Emergency electrical call-outs are available 24 hours – call {PHONE}."),
         ("Are you licensed and insured?", f"Yes. Tony is a qualified electrician and air conditioning technician, NSW Electrical Licence No. {LICENCE}, and the business is fully insured."),
         ("Do you give free quotes?", "Yes. Send us your details and a photo of the job using the form on this page, or give us a call, and we'll give you a free quote."),
     ]
@@ -985,7 +995,7 @@ for sp in SUBURB_PAGES:
               <a class="more" href="{SVC_FILE[slug]}">{SVC_BY_SLUG[slug]["name"]} in {n} →</a>
             </div>""" for slug, ic, d in SUBURB_SERVICES)
     body = page_hero(f"Electrician &amp; Air Conditioning in {n}",
-                     f"Licensed local electrician and air conditioning technician servicing {n} NSW {sp['postcode']} – open 24 hours, 7 days.",
+                     f"Licensed local electrician and air conditioning technician servicing {n} NSW {sp['postcode']} – emergency call-outs 24 hours.",
                      breadcrumb(*trail) + hero_actions(), "page-locations.jpg") + f"""
 
     <section>
@@ -1034,7 +1044,7 @@ for sp in SUBURB_PAGES:
 
 {CTA}"""
     title = f"Electrician {n} {sp['postcode']} &amp; Air Con | HTB Electrical"
-    desc = f"Licensed {n} electrician & air con installer, open 24/7. Switchboards, lighting, EV chargers, split & ducted air con. Call {PHONE}."
+    desc = f"Licensed {n} electrician & air con installer. Electrical installations, renovations, EV chargers, split & ducted air con. 24/7 emergencies. {PHONE}."
     head = ld({"@context": "https://schema.org", "@type": "Service",
                "name": f"Electrician and air conditioning in {n}", "serviceType": "Electrician", "url": page_url(fn),
                "provider": BUSINESS_REF,
@@ -1055,8 +1065,8 @@ thanks = page_hero("Thank You!", "Your request has been sent.") + f"""
       </div>
     </section>"""
 
-D = ("Licensed North Sydney electrician & air con installer, open 24/7. Switchboards, lighting, EV chargers, "
-     "split & ducted systems. Call " + PHONE + ".")
+D = ("Licensed North Sydney electrician & air con installer: electrical installations, renovations, EV chargers, "
+     "split & ducted systems. 24/7 emergencies.")
 
 # ---------- 404 ----------
 not_found = page_hero("Page Not Found", "Sorry, we couldn't find that page. It may have moved.") + f"""
@@ -1084,8 +1094,8 @@ PAGES = [
      "Meet Tony Bui – licensed electrician and air conditioning technician running a family-owned business in North Sydney. Honest, fair pricing and tidy work.", about, "about.html"),
     ("locations.html", "Electrician Service Areas Across Sydney | HTB Electrical",
      "Electrical and air conditioning services across North Sydney, the Lower North Shore, Sydney CBD, Northern Beaches, Inner West, Hills and Eastern Suburbs.", locations, "locations.html"),
-    ("contact.html", "Contact HTB Electrical | 24/7 Electrician North Sydney",
-     "Call HTB Electrical & Air Conditioning 24/7 on " + PHONE + " or send us your enquiry. Licensed electrician based in North Sydney.", contact, "contact.html"),
+    ("contact.html", "Contact HTB Electrical | Electrician North Sydney",
+     "Call HTB Electrical & Air Conditioning on " + PHONE + " (7am–7pm, emergency call-outs 24 hours) or send your enquiry. Licensed electrician in North Sydney.", contact, "contact.html"),
     ("quote.html", "Free Electrical &amp; Air Con Quote Sydney | HTB Electrical",
      "Request a free quote or booking for electrical or air conditioning work in Sydney. Attach photos and we'll get back to you fast.", quote_page, None),
     ("thanks.html", "Thank You | HTB Electrical &amp; Air Conditioning", "Thank you for your enquiry.", thanks, None),
