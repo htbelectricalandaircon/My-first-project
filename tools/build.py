@@ -21,6 +21,23 @@ FACEBOOK_URL = ""
 GOOGLE_REVIEW = "https://g.page/htbelectrical/review?rc"
 FORM_ACTION = "https://formsubmit.co/" + EMAIL
 from landing_content import SERVICE_PAGES, SUBURB_PAGES
+# Service pages whose factual claims still need the client's approval. Build with
+# HTB_HOLD_PENDING=1 to leave them, and every link to them, out of the site, so the
+# other fixes can be deployed first. A normal build includes them.
+PENDING_APPROVAL = {"electrical-installations", "renovation-electrician"}
+HOLD_PENDING = os.environ.get("HTB_HOLD_PENDING") == "1"
+if HOLD_PENDING:
+    SERVICE_PAGES = [sp for sp in SERVICE_PAGES if sp["slug"] not in PENDING_APPROVAL]
+    _fallback = ["switchboard-upgrades", "ev-charger-installation", "lighting-installation",
+                 "split-system-air-conditioning-installation", "emergency-electrician-sydney"]
+    for _sp in SERVICE_PAGES:
+        _rel = [r for r in _sp["related"] if r not in PENDING_APPROVAL]
+        for r in _fallback:
+            if len(_rel) >= len(_sp["related"]):
+                break
+            if r != _sp["slug"] and r not in _rel:
+                _rel.append(r)
+        _sp["related"] = _rel
 for _sp in SUBURB_PAGES:
     _sp.setdefault("slug", _sp["name"].lower().replace(" ", "-"))
     _sp["file"] = f"electrician-{_sp['slug']}.html"
@@ -48,6 +65,8 @@ ITEM_PAGE = {
     "Servicing & Maintenance": "air-conditioning-service-repairs",
     "Air Conditioning Repairs": "air-conditioning-service-repairs",
 }
+if HOLD_PENDING:
+    ITEM_PAGE = {k: v for k, v in ITEM_PAGE.items() if v not in PENDING_APPROVAL}
 def suburb_chip(name):
     f = SUBURB_FILE.get(name)
     return f'<li class="link"><a href="{f}">{name}</a></li>' if f else f"<li>{name}</li>"
@@ -973,6 +992,8 @@ SUBURB_SERVICES = [
     ("ducted-air-conditioning-installation", "duct", "Whole-home ducted air conditioning with zoning."),
     ("air-conditioning-service-repairs", "snow", "Air con servicing, maintenance and repairs."),
 ]
+if HOLD_PENDING:
+    SUBURB_SERVICES = [x for x in SUBURB_SERVICES if x[0] not in PENDING_APPROVAL]
 REGION_OF = {s: r for r, subs in REGIONS for s in subs}
 REGION_OF.update({r: r for r, _ in REGIONS})
 
