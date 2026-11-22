@@ -14,8 +14,8 @@ SITE = "https://htbelectrical.com.au"
 GOOGLE_PROFILE = "https://www.google.com/maps?cid=14435020169673931568"
 # Google rating shown on the site. Check against the Google Business Profile before changing.
 REVIEW_COUNT = 349
-# Leave blank until the real Google Tag Manager container exists. Nothing is output while blank.
-GTM_ID = ""
+# HTB container created 22 Nov 2026 in the agency Google account. Blank it to remove GTM from every page.
+GTM_ID = "GTM-NRD5MJCT"
 # Add the verified Facebook page URL here to include it in the business schema.
 FACEBOOK_URL = ""
 GOOGLE_REVIEW = "https://g.page/htbelectrical/review?rc"
