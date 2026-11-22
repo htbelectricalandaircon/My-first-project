@@ -28,7 +28,8 @@ SERVICE_PAGES = [
             "Data points, TV points and network cabling",
         ],
         safety=None,
-        work=["work-downlights.jpg", "work-pendants.jpg", "work-cooktop.jpg", "work-led-stairs.jpg", "work-ceiling-fan.jpg", "work-tv-mount.jpg"],
+        work=["job-power-point.jpg", "job-ceiling-cabling.jpg", "job-deck-downlight.jpg", "job-pendant-light.jpg", "work-downlights.jpg", "work-cooktop.jpg", "work-led-stairs.jpg", "work-tv-mount.jpg"],
+        quote_tips=["A photo of the area where you need the work", "A photo of your switchboard with the door open", "The make and model of any appliance to be connected", "Whether it's a house, apartment or business"],
         faqs=[
             ("Can you add power points to an existing room?", "Yes. We check the circuit and your switchboard first, then add or relocate power points, including USB and outdoor power points."),
             ("Do I need a new circuit for my cooktop or oven?", "Many cooktops and ovens need a dedicated circuit. We check the appliance requirements and your switchboard and tell you before any work starts."),
@@ -61,7 +62,8 @@ SERVICE_PAGES = [
             "Power and placement for new air conditioning",
         ],
         safety=None,
-        work=["work-pendants.jpg", "work-cooktop.jpg", "work-towel-rail.jpg", "work-led-mirror.jpg", "work-led-robe.jpg", "work-chandelier.jpg"],
+        work=["job-pendant-light.jpg", "job-ceiling-cabling.jpg", "work-pendants.jpg", "work-cooktop.jpg", "work-towel-rail.jpg", "work-led-mirror.jpg", "work-led-robe.jpg", "work-chandelier.jpg"],
+        quote_tips=["Your plans, or a sketch of the new layout", "The stage of the renovation and your builder's timeline", "A photo of your switchboard with the door open", "Any appliances you've chosen, such as the cooktop and oven"],
         faqs=[
             ("When should I involve an electrician in my renovation?", "Before the walls and ceilings are closed in. Planning early means cabling can be run during the rough-in stage, which is usually simpler and neater than adding it later."),
             ("Can you work with my builder?", "Yes. We can coordinate rough-in and fit-off with your builder's schedule."),
@@ -158,7 +160,8 @@ SERVICE_PAGES = [
             "Certificate of Compliance for Electrical Work",
         ],
         safety=None,
-        work=["work-ev-charger.jpg", "work-switchboard.jpg", "work-commercial.jpg", "work-led-stairs.jpg"],
+        work=["work-ev-charger.jpg", "job-ceiling-cabling.jpg", "work-switchboard.jpg", "work-commercial.jpg", "work-led-stairs.jpg"],
+        quote_tips=["A photo of your switchboard with the door open", "A photo of where you'd like the charger", "Your car, and the charger model if you've chosen one", "Whether it's a house or an apartment car space (strata approval)"],
         faqs=[
             ("Can you install an EV charger in my apartment building?", "Often, yes. Apartment installs usually need strata approval and a way to measure your usage. We can provide the details your strata or building manager needs."),
             ("Do I need a switchboard upgrade?", "Not always. We check your board and supply first, and only recommend changes if they're needed to run the charger safely."),
@@ -191,7 +194,7 @@ SERVICE_PAGES = [
             "Dimmers, smart switches and two-way switching",
         ],
         safety=None,
-        work=["work-downlights.jpg", "work-pendants.jpg", "work-led-stairs.jpg", "work-chandelier.jpg", "work-led-mirror.jpg", "work-led-robe.jpg"],
+        work=["job-deck-downlight.jpg", "job-pendant-light.jpg", "work-downlights.jpg", "work-pendants.jpg", "work-led-stairs.jpg", "work-chandelier.jpg", "work-led-mirror.jpg", "work-led-robe.jpg"],
         faqs=[
             ("Can you replace my halogen downlights with LEDs?", "Yes. LED downlights use a fraction of the energy, run much cooler and last far longer. We can usually reuse the existing holes or fit a new layout."),
             ("Do you supply the lights?", "We can supply quality fittings or install lights you've already bought."),
@@ -223,7 +226,7 @@ SERVICE_PAGES = [
             "Secure mounting and balancing for quiet running",
         ],
         safety=None,
-        work=["work-ceiling-fan.jpg", "work-downlights.jpg", "work-pendants.jpg", "work-split-system.jpg"],
+        work=["job-ceiling-fan-living.jpg", "job-ceiling-fan-bedroom.jpg", "work-ceiling-fan.jpg", "work-downlights.jpg", "work-pendants.jpg", "work-split-system.jpg"],
         faqs=[
             ("Can a fan go where my light is now?", "Usually, yes. We check the ceiling and fixing point and make sure it's strong enough to hold the fan safely."),
             ("Can I have a fan with a light?", "Yes. Many fans come with a built-in LED light, and we can wire it so the fan and light are controlled separately."),
@@ -255,7 +258,8 @@ SERVICE_PAGES = [
             "Removal of your old unit if you're replacing one",
         ],
         safety=None,
-        work=["work-split-system.jpg", "work-switchboard.jpg", "work-ceiling-fan.jpg", "work-commercial.jpg"],
+        work=["job-ac-outdoor-unit.jpg", "work-split-system.jpg", "job-ac-refrigerant-gauges.jpg", "work-switchboard.jpg", "work-ceiling-fan.jpg", "work-commercial.jpg"],
+        quote_tips=["Photos of the room and the wall for the indoor unit", "A photo of where the outdoor unit could go", "The rough size of the room and which way it faces", "A photo of your switchboard, and whether it's a strata building"],
         faqs=[
             ("What size air conditioner do I need?", "It depends on the size of the room, ceiling height, insulation, windows and which way the room faces. We assess the space and recommend a size that will run efficiently."),
             ("Do I need a new power circuit?", "Most split systems need a dedicated circuit. As licensed electricians we install it as part of the job."),
@@ -287,7 +291,8 @@ SERVICE_PAGES = [
             "Testing, commissioning and a full handover",
         ],
         safety=None,
-        work=["work-split-system.jpg", "work-switchboard.jpg", "work-commercial.jpg", "work-downlights.jpg"],
+        work=["work-split-system.jpg", "job-ac-refrigerant-gauges.jpg", "job-ac-outdoor-unit.jpg", "work-switchboard.jpg", "work-commercial.jpg", "work-downlights.jpg"],
+        quote_tips=["A floor plan, or a list of the rooms to heat and cool", "Photos of the roof space access, if you can", "A photo of your switchboard with the door open", "Which rooms you'd like grouped into each zone"],
         faqs=[
             ("Is ducted better than split systems?", "Ducted suits whole-home comfort and a clean look with no wall units. Split systems cost less up front and are great for individual rooms. We'll explain the options honestly for your home."),
             ("What is zoning?", "Zoning splits your home into areas you can turn on and off separately – for example, living areas during the day and bedrooms at night – so you don't pay to cool empty rooms."),
@@ -319,7 +324,7 @@ SERVICE_PAGES = [
             "Power and circuit faults to the air conditioner",
         ],
         safety=None,
-        work=["work-split-system.jpg", "work-switchboard.jpg", "work-commercial.jpg", "work-ceiling-fan.jpg"],
+        work=["job-ac-indoor-unit.jpg", "job-ac-refrigerant-gauges.jpg", "job-ac-outdoor-unit.jpg", "work-split-system.jpg", "work-switchboard.jpg", "work-commercial.jpg", "work-ceiling-fan.jpg"],
         faqs=[
             ("How often should my air conditioner be serviced?", "For most homes we recommend a service once a year, ideally before summer. Clean the filters yourself every few months between services."),
             ("Why is my air conditioner leaking water?", "The most common cause is a blocked drain line or very dirty filters and coils. Turn the unit off and call us – it's usually a straightforward fix."),

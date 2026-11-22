@@ -720,3 +720,9 @@ footer .todo { background: transparent; color: #ffd75e; border-color: #ffd75e; }
 a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
 .cat-card .tick-list a { color: inherit; text-decoration: none; }
 .cat-card .tick-list a:hover { text-decoration: underline; }
+
+/* Quote tips under the service page form */
+.quote-tips { margin-top: 20px; padding: 20px 22px; background: var(--blue-soft); border-radius: 14px; }
+.quote-tips h2 { font-size: 1.1rem; margin: 0 0 6px; }
+.quote-tips p { margin: 0 0 10px; font-size: 0.95rem; }
+.quote-tips .tick-list li { font-size: 0.95rem; }

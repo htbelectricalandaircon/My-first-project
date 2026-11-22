@@ -23,7 +23,8 @@ FORM_ACTION = "https://formsubmit.co/" + EMAIL
 from landing_content import SERVICE_PAGES, SUBURB_PAGES
 # Service pages whose factual claims still need the client's approval. Build with
 # HTB_HOLD_PENDING=1 to leave them, and every link to them, out of the site, so the
-# other fixes can be deployed first. A normal build includes them.
+# other fixes can be deployed first. The same switch holds back the new job photos
+# (NEW_JOB_PHOTOS) until permissions are confirmed. A normal build includes both.
 PENDING_APPROVAL = {"electrical-installations", "renovation-electrician"}
 HOLD_PENDING = os.environ.get("HTB_HOLD_PENDING") == "1"
 if HOLD_PENDING:
@@ -484,7 +485,26 @@ REGIONS = [
 ]
 
 # ---------- Recent work gallery ----------
-WORK = [
+# Job photos supplied by the client on 21 Nov 2026. Captions describe only what each photo shows.
+# They are held back (with the pending pages) until staff and customer permissions are confirmed.
+NEW_JOB_PHOTOS = [
+    ("job-pendant-light.jpg", "Pendant light fitting", "HTB electrician fitting a two-arm pendant light above a dining table"),
+    ("job-ceiling-cabling.jpg", "Running cabling along a ceiling", "HTB electrician running cabling along exposed ceiling joists"),
+    ("job-power-point.jpg", "Fitting a power point", "HTB electrician fitting a power point high on a wall"),
+    ("job-deck-downlight.jpg", "LED downlight on a covered deck", "HTB electrician on a ladder fitting a square LED downlight to a covered deck ceiling"),
+    ("job-ceiling-fan-living.jpg", "Ceiling fan in a living room", "HTB electrician on a ladder fitting a timber-blade ceiling fan in a living room"),
+    ("job-ceiling-fan-bedroom.jpg", "Ceiling fan with light in a bedroom", "HTB electrician fitting a white ceiling fan with a light in a bedroom"),
+    ("job-ac-outdoor-unit.jpg", "Split system outdoor unit", "HTB technician working on a split system outdoor unit under a timber deck"),
+    ("job-ac-indoor-unit.jpg", "Split system indoor unit", "HTB technician working on a wall-mounted split system indoor unit"),
+    ("job-ac-refrigerant-gauges.jpg", "Checking refrigerant pressures", "HTB technician reading refrigerant gauges connected to an outdoor air conditioning unit"),
+]
+PENDING_PHOTOS = {f for f, _, _ in NEW_JOB_PHOTOS}
+PHOTO_ALT = {f: a for f, _, a in NEW_JOB_PHOTOS}
+
+def visible(files):
+    return [f for f in files if not (HOLD_PENDING and f in PENDING_PHOTOS)]
+
+WORK = [(f, c) for f, c, _ in NEW_JOB_PHOTOS] + [
     ("work-split-system.jpg", "Split system air conditioning installation"),
     ("work-switchboard.jpg", "Switchboard upgrade with RCD safety switches"),
     ("work-ev-charger.jpg", "Tesla EV charger installation"),
@@ -501,12 +521,34 @@ WORK = [
     ("work-towel-rail.jpg", "Heated towel rail installation"),
     ("work-commercial.jpg", "Commercial kitchen electrical work"),
 ]
+if HOLD_PENDING:
+    WORK = [(f, c) for f, c in WORK if f not in PENDING_PHOTOS]
+
+def work_img(f, c):
+    """<picture> with WebP sizes when they exist, JPEG fallback with real dimensions."""
+    img = f'<img src="images/{f}" alt="{PHOTO_ALT.get(f, c)}" loading="lazy" decoding="async" {img_dims(f)}>'
+    stem = f.rsplit(".", 1)[0]
+    if not os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "images", stem + "-800.webp")):
+        return img
+    return (f'<picture><source type="image/webp" srcset="images/{stem}-480.webp 480w, images/{stem}-800.webp 800w" '
+            f'sizes="(max-width: 640px) 50vw, (max-width: 960px) 33vw, 25vw">{img}</picture>')
+
 def gallery(items):
     return "".join(f"""
           <figure class="work">
-            <img src="images/{f}" alt="{c}" loading="lazy" {img_dims(f)}>
+            {work_img(f, c)}
             <figcaption>{c}</figcaption>
           </figure>""" for f, c in items)
+
+# Homepage gallery leads with the priority services: installations, lighting, air conditioning, EV.
+HOME_WORK = visible(["job-pendant-light.jpg", "job-ceiling-cabling.jpg", "job-ac-outdoor-unit.jpg", "work-ev-charger.jpg",
+                     "job-deck-downlight.jpg", "work-switchboard.jpg", "job-ceiling-fan-living.jpg", "work-split-system.jpg"])
+for _f, _ in WORK:
+    if len(HOME_WORK) >= 8:
+        break
+    if _f not in HOME_WORK:
+        HOME_WORK.append(_f)
+HOME_WORK = [(f, dict(WORK)[f]) for f in HOME_WORK]
 
 # ---------- Home ----------
 cat_cards = ""
@@ -610,7 +652,7 @@ home = f"""    <section class="hero">
           <h2 class="section-title">Our Recent Work</h2>
           <p class="section-intro">Real jobs completed by Tony for homes and businesses across Sydney.</p>
         </div>
-        <div class="work-grid">{gallery(WORK[:8])}
+        <div class="work-grid">{gallery(HOME_WORK)}
         </div>
         <div class="center" style="margin-top:28px">
           <a href="services.html#work" class="btn btn-navy-outline">See more of our work</a>
@@ -903,6 +945,11 @@ def reviews_section(cls=""):
       </div>
     </section>"""
 
+def full_rows(items):
+    """Up to 8 photos, trimmed to whole rows of four so the desktop grid has no gaps."""
+    items = items[:8]
+    return items[:len(items) // 4 * 4] if len(items) > 4 else items
+
 def work_section(files, cls=""):
     return f"""
     <section{cls}>
@@ -911,7 +958,7 @@ def work_section(files, cls=""):
           <h2 class="section-title">Our Recent Work</h2>
           <p class="section-intro">Real jobs completed by Tony for homes and businesses across Sydney.</p>
         </div>
-        <div class="work-grid">{gallery([(f, WORK_CAPTION[f]) for f in files])}
+        <div class="work-grid">{gallery(full_rows([(f, WORK_CAPTION[f]) for f in visible(files)]))}
         </div>
       </div>
     </section>"""
@@ -922,6 +969,12 @@ for sp in SERVICE_PAGES:
     fn = SVC_FILE[sp["slug"]]
     trail = [("Home", "index.html"), ("Services", "services.html"), (sp["name"], fn)]
     safety = f'\n          <div class="note">{ico("shield")}<p>{sp["safety"]}</p></div>' if sp["safety"] else ""
+    quote_tips = "" if not sp.get("quote_tips") else f"""
+          <div class="quote-tips">
+            <h2>For a faster, more accurate quote</h2>
+            <p>Attach photos to the form above, or mention these in your message:</p>
+            <ul class="tick-list">{"".join(f"<li>{ico('check')}{t}</li>" for t in sp["quote_tips"])}</ul>
+          </div>"""
     related = "".join(f"""
           <a class="rel-card" href="{SVC_FILE[r]}"><strong>{SVC_BY_SLUG[r]["name"]}</strong><span>Learn more →</span></a>""" for r in sp["related"])
     body = page_hero(sp["h1"], sp["sub"], breadcrumb(*trail) + hero_actions(), sp["banner"]) + f"""
@@ -942,7 +995,7 @@ for sp in SERVICE_PAGES:
           </ul>
         </div>
         <div id="enquire">
-          {short_form("e", "Get a Free Quote", "Send us your details and we'll be in touch.", "New quote request – website (" + plain(sp["name"]) + ")")}
+          {short_form("e", "Get a Free Quote", "Send us your details and we'll be in touch.", "New quote request – website (" + plain(sp["name"]) + ")")}{quote_tips}
         </div>
       </div>
     </section>
