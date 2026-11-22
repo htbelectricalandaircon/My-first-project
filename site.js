@@ -37,3 +37,31 @@ document.querySelectorAll("input[type='file']").forEach(function (input) {
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// Lead events for Google Tag Manager. These do nothing until a GTM container is installed.
+window.dataLayer = window.dataLayer || [];
+document.addEventListener("click", function (e) {
+  var link = e.target.closest ? e.target.closest("a[href^='tel:'], a[href^='mailto:']") : null;
+  if (!link) return;
+  var isPhone = link.getAttribute("href").indexOf("tel:") === 0;
+  window.dataLayer.push({ event: isPhone ? "phone_click" : "email_click", page_path: window.location.pathname });
+});
+document.querySelectorAll("form[action*='formsubmit.co']").forEach(function (form) {
+  form.addEventListener("submit", function () {
+    var service = form.querySelector("select[name='service']");
+    try {
+      sessionStorage.setItem("htb_lead", JSON.stringify({ form_page: window.location.pathname, service: service ? service.value : "" }));
+    } catch (err) {}
+  });
+});
+// Only count a lead when this browser tab really submitted a form, so direct visits to the thank-you page are ignored.
+if (/\/thanks(\.html)?$/.test(window.location.pathname)) {
+  try {
+    var lead = sessionStorage.getItem("htb_lead");
+    if (lead) {
+      sessionStorage.removeItem("htb_lead");
+      var details = JSON.parse(lead);
+      window.dataLayer.push({ event: "generate_lead", form_page: details.form_page, service: details.service });
+    }
+  } catch (err) {}
+}

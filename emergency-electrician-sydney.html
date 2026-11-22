@@ -25,7 +25,21 @@
  "description": "Power out, safety switch tripping or burning smell? Licensed 24/7 emergency electrician in North Sydney and across Sydney. Call 0403 116 368.",
  "url": "https://htbelectrical.com.au/emergency-electrician-sydney.html",
  "provider": {
-  "@id": "https://htbelectrical.com.au/#business"
+  "@type": [
+   "Electrician",
+   "HVACBusiness"
+  ],
+  "@id": "https://htbelectrical.com.au/#business",
+  "name": "HTB Electrical & Air Conditioning Pty Ltd",
+  "url": "https://htbelectrical.com.au/",
+  "telephone": "+61403116368",
+  "address": {
+   "@type": "PostalAddress",
+   "addressLocality": "North Sydney",
+   "addressRegion": "NSW",
+   "postalCode": "2060",
+   "addressCountry": "AU"
+  }
  },
  "areaServed": [
   {
@@ -105,7 +119,7 @@
    "name": "Are you really available 24/7?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Yes. You can call 0403 116 368 at any time, including nights, weekends and public holidays."
+    "text": "For electrical emergencies, yes – call-outs are available 24 hours. Our standard hours for other work are 7am–7pm. Call 0403 116 368."
    }
   },
   {
@@ -161,11 +175,15 @@
  ]
 }
   </script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NRD5MJCT');</script>
+  <link rel="preload" as="image" href="images/banner-electrical.jpg" fetchpriority="high">
   <link rel="icon" type="image/png" href="images/icon.png">
   <link rel="apple-touch-icon" href="images/icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NRD5MJCT" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
@@ -208,12 +226,12 @@
     <div class="ticker">
       <div class="ticker-track">
         <div class="ticker-group">
-          <span><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><strong>Open 24 hours, 7 days</strong></span>
+          <span><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><strong>Open 7am–7pm · 24/7 emergency call-outs</strong></span>
           <a href="mailto:info@htbelectrical.com.au"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>info@htbelectrical.com.au</a>
           <a href="tel:+61403116368"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><strong>0403 116 368</strong></a>
         </div>
         <div class="ticker-group" aria-hidden="true">
-          <span><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><strong>Open 24 hours, 7 days</strong></span>
+          <span><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><strong>Open 7am–7pm · 24/7 emergency call-outs</strong></span>
           <a tabindex="-1" href="mailto:info@htbelectrical.com.au"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>info@htbelectrical.com.au</a>
           <a tabindex="-1" href="tel:+61403116368"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><strong>0403 116 368</strong></a>
         </div>
@@ -223,10 +241,10 @@
 
   <header>
     <div class="container nav">
-      <a href="index.html" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
+      <a href="/" class="brand"><img src="images/logo.png" alt="HTB Electrical &amp; Air Conditioning Pty Ltd" width="600" height="305"></a>
       <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg></button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="services.html">Services</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="locations.html">Locations</a></li>
@@ -236,12 +254,12 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="page-hero has-photo" style="--photo:url(images/banner-electrical.jpg)">
       <div class="container">
         <h1>24/7 Emergency Electrician in Sydney</h1>
         <p>Power out, safety switch keeps tripping or something smells like it's burning? Call Tony any time, day or night.</p>
-        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> › <a href="services.html">Services</a> › <span aria-current="page">Emergency Electrician</span></nav>
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="services.html">Services</a> › <span aria-current="page">Emergency Electrician</span></nav>
         <div class="hero-actions" style="margin-top:22px">
           <a href="tel:+61403116368" class="btn btn-red"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Call 0403 116 368</a>
           <a href="#enquire" class="btn btn-outline">Get a Free Quote</a>
@@ -252,15 +270,15 @@
     <section>
       <div class="container landing-grid">
         <div class="prose">
-          <p>Electrical problems never seem to happen at a convenient time. HTB Electrical &amp; Air Conditioning is open 24 hours a day, 7 days a week, so when something goes wrong you can talk to a licensed electrician straight away – not a call centre.</p><p>Based in North Sydney, we look after homes, apartments and businesses across the Lower North Shore, Sydney CBD and greater Sydney. We find the cause of the fault, explain it in plain English, and make it safe. If a bigger repair is needed, we give you the price before we start.</p>
+          <p>Electrical problems never seem to happen at a convenient time. HTB Electrical &amp; Air Conditioning offers emergency call-outs 24 hours a day, so when something goes wrong you can talk to a licensed electrician straight away – not a call centre.</p><p>Based in North Sydney, we look after homes, apartments and businesses across the Lower North Shore, Sydney CBD and greater Sydney. We find the cause of the fault, explain it in plain English, and make it safe. If a bigger repair is needed, we give you the price before we start.</p>
           <h2>Common emergency call-outs</h2>
           <ul class="tick-list"><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Total or partial loss of power</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Safety switch (RCD) or circuit breaker that keeps tripping</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Burning smell, scorch marks or hot power points and switches</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Sparking power points, switches or appliances</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Flickering or dimming lights</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Storm or water damage to wiring</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Faulty hot water, oven or cooktop circuits</li></ul>
           <div class="note"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><p>If you can smell burning or see sparks or smoke, turn the power off at the main switch if it is safe to do so, keep away from the area, and call us. If there is a fire, call 000 first.</p></div>
           <h2>Why choose HTB Electrical &amp; Air Conditioning?</h2>
           <ul class="tick-list">
-            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Licensed electrician <strong>and</strong> air conditioning technician – Lic. 376869C</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Licensed electrician <strong>and</strong> air conditioning technician – Contractor Lic. 376869C</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Family-owned North Sydney business with more than 10 years' experience</li>
-            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Open 24 hours, 7 days</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Open 7am–7pm, with 24-hour emergency call-outs</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Clear, upfront pricing and honest advice</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>We leave your home clean and tidy</li>
           </ul>
@@ -270,7 +288,7 @@
             <input type="hidden" name="_subject" value="New quote request – website (Emergency Electrician)">
             <input type="hidden" name="_next" value="https://htbelectrical.com.au/thanks.html">
             <input type="hidden" name="_template" value="table">
-            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-label="Leave this field empty">
             <h2>Get a Free Quote</h2>
             <p class="hint">Send us your details and we'll be in touch.</p>
             <div class="field">
@@ -295,7 +313,7 @@
               <label for="e-service">Service needed</label>
               <select id="e-service" name="service" required>
                   <option value="">Select a service…</option>
-                  <optgroup label="Electrical"><option>Electrical repairs &amp; fault finding</option><option>Switchboard upgrade</option><option>Ceiling fan installation</option><option>Downlight installation</option><option>Pendant light installation</option><option>Smoke alarm installation</option><option>Cooktop &amp; oven installation</option><option>Smart doorbell installation</option><option>Security camera installation</option><option>Power point installation</option><option>LED strip lighting</option><option>Exhaust fan installation</option><option>Heated towel rail installation</option><option>EV charger installation</option><option>Network cabling</option><option>TV wall mounting</option><option>TV antenna</option></optgroup><optgroup label="Air conditioning"><option>Split system air conditioning installation</option><option>Ducted air conditioning installation</option><option>Air conditioner replacement</option><option>Air conditioning service &amp; maintenance</option><option>Air conditioning repairs</option></optgroup>
+                  <optgroup label="Electrical"><option>Electrical installation</option><option>Renovation electrical work</option><option>Electrical repairs &amp; fault finding</option><option>Switchboard upgrade</option><option>Ceiling fan installation</option><option>Downlight installation</option><option>Pendant light installation</option><option>Smoke alarm installation</option><option>Cooktop &amp; oven installation</option><option>Smart doorbell installation</option><option>Security camera installation</option><option>Power point installation</option><option>LED strip lighting</option><option>Exhaust fan installation</option><option>Heated towel rail installation</option><option>EV charger installation</option><option>Network cabling</option><option>TV wall mounting</option><option>TV antenna</option></optgroup><optgroup label="Air conditioning"><option>Split system air conditioning installation</option><option>Ducted air conditioning installation</option><option>Air conditioner replacement</option><option>Air conditioning service &amp; maintenance</option><option>Air conditioning repairs</option></optgroup>
                   <option>Other</option>
                 </select>
             </div>
@@ -322,19 +340,19 @@
         </div>
         <div class="work-grid">
           <figure class="work">
-            <img src="images/work-switchboard.jpg" alt="Switchboard upgrade with RCD safety switches" loading="lazy" width="800" height="1067">
+            <img src="images/work-switchboard.jpg" alt="Switchboard upgrade with RCD safety switches" loading="lazy" decoding="async" width="800" height="897">
             <figcaption>Switchboard upgrade with RCD safety switches</figcaption>
           </figure>
           <figure class="work">
-            <img src="images/work-commercial.jpg" alt="Commercial kitchen electrical work" loading="lazy" width="800" height="1067">
+            <img src="images/work-commercial.jpg" alt="Commercial kitchen electrical work" loading="lazy" decoding="async" width="800" height="1067">
             <figcaption>Commercial kitchen electrical work</figcaption>
           </figure>
           <figure class="work">
-            <img src="images/work-cooktop.jpg" alt="Cooktop installation" loading="lazy" width="800" height="1067">
+            <img src="images/work-cooktop.jpg" alt="Cooktop installation" loading="lazy" decoding="async" width="800" height="1067">
             <figcaption>Cooktop installation</figcaption>
           </figure>
           <figure class="work">
-            <img src="images/work-downlights.jpg" alt="LED downlight installation" loading="lazy" width="800" height="1067">
+            <img src="images/work-downlights.jpg" alt="LED downlight installation" loading="lazy" decoding="async" width="800" height="961">
             <figcaption>LED downlight installation</figcaption>
           </figure>
         </div>
@@ -348,7 +366,7 @@
           <div class="rating-badge">
             <span class="rating-num">5.0</span>
             <span class="stars"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg></span>
-            <span>from <strong>347 Google reviews</strong></span>
+            <span>from <strong>349 Google reviews</strong></span>
           </div>
         </div>
         <div class="review-grid">
@@ -372,7 +390,7 @@
           </div>
         </div>
         <div class="hero-actions" style="justify-content:center;margin-top:28px">
-          <a href="https://www.google.com/maps/search/?api=1&amp;query=HTB%20ELECTRICAL%20%26%20AIR%20CONDITIONING%20P%2FL" class="btn btn-navy-outline" target="_blank" rel="noopener"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg>Read all our Google reviews</a>
+          <a href="https://www.google.com/maps?cid=14435020169673931568" class="btn btn-navy-outline" target="_blank" rel="noopener"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-star"/></svg>Read all our Google reviews</a>
         </div>
       </div>
     </section>
@@ -380,7 +398,7 @@
     <section class="bg-soft">
       <div class="container narrow">
         <h2 class="section-title center">Frequently Asked Questions</h2>
-          <details class="faq"><summary>Are you really available 24/7?</summary><p>Yes. You can call 0403 116 368 at any time, including nights, weekends and public holidays.</p></details>
+          <details class="faq"><summary>Are you really available 24/7?</summary><p>For electrical emergencies, yes – call-outs are available 24 hours. Our standard hours for other work are 7am–7pm. Call 0403 116 368.</p></details>
           <details class="faq"><summary>Why does my safety switch keep tripping?</summary><p>A tripping safety switch usually means it has detected current leaking somewhere it shouldn't – often a faulty appliance, water in an outdoor power point or light, or damaged wiring. Try unplugging appliances on that circuit and resetting it. If it still trips, call us to find the fault.</p></details>
           <details class="faq"><summary>Do you give a price before starting?</summary><p>Yes. Once we've found the problem we explain what needs to be done and the cost before any repair work goes ahead.</p></details>
           <details class="faq"><summary>Do you work on apartments and strata buildings?</summary><p>Yes. We regularly work in apartments around North Sydney and the CBD and are happy to liaise with your building manager or strata.</p></details>
@@ -410,7 +428,7 @@
     <div class="cta">
       <div class="container">
         <h2>Need an electrician or air conditioning technician?</h2>
-        <p>We're available 24 hours a day, 7 days a week.</p>
+        <p>Open 7am–7pm, with emergency call-outs available 24 hours.</p>
         <div class="actions">
           <a href="tel:+61403116368" class="btn btn-white"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Call 0403 116 368</a>
           <a href="quote.html" class="btn btn-outline">Get a Free Quote</a>
@@ -427,7 +445,7 @@
           <p class="tag">North Sydney Electrical &amp; Air Conditioning Technicians</p>
           <ul style="margin-top:14px">
             <li>ABN: 54 168 092 466</li>
-            <li>Electrical Licence No: 376869C</li>
+            <li>Electrical Contractor Licence No: 376869C</li>
           </ul>
         </div>
         <div>
@@ -470,7 +488,7 @@
           <ul>
             <li><a class="line" href="tel:+61403116368"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>0403 116 368</a></li>
             <li><a class="line" href="mailto:info@htbelectrical.com.au"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>info@htbelectrical.com.au</a></li>
-            <li class="line"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Open 24 hours, 7 days</li>
+            <li class="line"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Open 7am–7pm · 24/7 emergency call-outs</li>
             <li class="line"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>North Sydney NSW</li>
             <li><a href="quote.html">Get a Quote or Booking</a></li>
             <li><a href="https://g.page/htbelectrical/review?rc" target="_blank" rel="noopener">Review us on Google</a></li>

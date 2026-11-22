@@ -15,3 +15,14 @@ python3 tools/build.py .
 Service and suburb page copy lives in `tools/landing_content.py`.
 
 Styles are in `styles.css`, shared scripts in `site.js`, and photos in `images/`.
+
+## Checking changes
+
+Run the SEO checks after every rebuild. It reports broken links, invalid schema,
+duplicate titles and sitemap problems, and exits with an error if any are found:
+
+```bash
+python3 tools/seo_check.py .
+```
+
+Set `GTM_ID` in `tools/build.py` only once the real Google Tag Manager container exists.
